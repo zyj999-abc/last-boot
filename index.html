@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>最后一次开机 - 调机须知</title>
+<style>
+  :root { --amber:#e8b45a; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{height:100vh;overflow:hidden;background:#05070d;color:#cfc9bc;font-family:"Noto Serif SC","SimSun",serif;display:flex;align-items:center;justify-content:center;}
+  .fx-scanlines{position:fixed;inset:0;pointer-events:none;z-index:5;background:linear-gradient(rgba(10,12,16,0) 50%,rgba(0,0,0,.2) 50%);background-size:100% 3px;}
+  .box{position:relative;z-index:10;width:min(680px,92vw);max-height:88vh;overflow-y:auto;background:#08090f;border:1px solid #1d2029;border-top:3px solid var(--amber);padding:clamp(28px,5vw,50px);box-shadow:0 0 60px rgba(0,0,0,.9),inset 0 0 40px rgba(0,0,0,.5);animation:b-in 1.3s ease both;}
+  @keyframes b-in{from{opacity:0;}to{opacity:1;}}
+  .box::-webkit-scrollbar{width:4px}.box::-webkit-scrollbar-thumb{background:var(--amber)}
+  .hd{text-align:center;margin-bottom:30px;}
+  .hd .t1{font-size:clamp(22px,4vw,30px);letter-spacing:10px;color:#fff;}
+  .hd .t2{font-family:"Courier New";font-size:12px;color:#565b66;letter-spacing:4px;margin-top:10px;}
+  .clause{list-style:none;}
+  .clause li{margin-bottom:18px;line-height:2.05;font-size:14px;color:#a49e91;text-align:justify;}
+  .clause b{display:block;color:#efe9da;font-size:15px;letter-spacing:3px;margin-bottom:6px;border-left:2px solid var(--amber);padding-left:10px;font-weight:normal;}
+  .r{color:#d4685c}.a{color:var(--amber)}
+  .meta{margin-top:24px;padding-top:16px;border-top:1px dashed #22242c;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-family:"Courier New";font-size:11px;color:#565b66;letter-spacing:1px;}
+  .act{margin-top:32px;text-align:center;}
+  .btn{display:inline-block;background:none;border:1px solid #3a352a;color:#cfc9bc;padding:12px 38px;font-family:inherit;font-size:15px;letter-spacing:4px;cursor:pointer;transition:.35s;text-decoration:none;}
+  .btn:hover{border-color:var(--amber);color:var(--amber);box-shadow:0 0 18px rgba(232,180,90,.15);}
+</style>
+</head>
+<body>
+<div class="fx-scanlines"></div>
+
+<div class="box">
+  <div class="hd">
+    <div class="t1">最 后 一 次 开 机</div>
+    <div class="t2">THE LAST BOOT · A FICTIONAL ARCHIVE FROM 2003</div>
+  </div>
+
+  <ul class="clause">
+    <li><b>Ⅰ · 性质声明</b>
+      本作品为完全虚构的互动叙事游戏。所有人物、机构、报纸、网站、论坛、电话号码均属虚构创作，与现实无关。剧情涉及新闻调查与身世谜题，<span class="r">不建议 14 岁以下游玩</span>。</li>
+    <li><b>Ⅱ · 氛围预警</b>
+      本格现实向，无灵异、无突脸惊吓（No Jumpscare）。含微恐氛围与轻微闪烁效果；个别情节涉及火灾回忆，请酌情游玩。</li>
+    <li><b>Ⅲ · 沉浸提示</b>
+      你将使用一台模拟的 <span class="a">Windows XP 电脑</span>：拖动窗口、翻文件、收邮件、拨号上网。请<span class="r">打开声音</span>——56K 猫的握手声是那个年代的入场券。</li>
+    <li><b>Ⅳ · 探索规约</b>
+      多线剧情、四结局，通关一周目约需 <span class="a">40~90 分钟</span>，全收集更久。线索藏在文件、邮件与网页之间：<span class="a">右键、双击、"最近文档"、回收站</span>都值得怀疑。卡关时别慌——这电脑认得细心的人。</li>
+  </ul>
+
+  <div class="meta">
+    <span>旧货市场 · 地摊 No.7 · ¥80 不还价</span>
+    <span>SYSTEM: STANDBY_</span>
+  </div>
+
+  <div class="act">
+    <button class="btn" onclick="boot()">付钱 · 抱它回家</button>
+  </div>
+</div>
+
+<script>
+function boot(){
+  document.body.style.transition='filter .6s';document.body.style.filter='brightness(.15) blur(2px)';
+  setTimeout(()=>location.href='boot.html',650);
+}
+document.addEventListener('pointerdown',()=>{try{sessionStorage.setItem('lb_audio','1');}catch(e){}},{once:true});
+</script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>老槐树BBS - 江州人的网上老家</title>
+<style>
+  body{margin:0;background:#0a1420 url('../assets/img/wp-snow.jpg') center/cover fixed;font-family:"SimSun","宋体",monospace;color:#c9d4dd;}
+  .veil{background:rgba(6,12,22,0.82);min-height:100vh;padding-bottom:40px;}
+  .hd{border-bottom:1px solid #23405e;padding:14px 26px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  .hd b{color:#9fc3ea;font-size:20px;letter-spacing:2px;text-shadow:0 0 10px rgba(120,170,230,.4);}
+  .hd span{font-size:12px;color:#5f7d9c;}
+  .crumb{padding:10px 26px;color:#5f7d9c;font-size:13px;border-bottom:1px dashed #1c3348;}
+  .crumb a{color:#7fb0e8;text-decoration:none;}
+  .list{max-width:900px;margin:18px auto;padding:0 16px;}
+  .thread{border:1px solid #1e3a58;background:rgba(10,22,38,.85);margin-bottom:12px;cursor:pointer;transition:.25s;}
+  .thread:hover{border-color:#3f6fa5;box-shadow:0 0 14px rgba(80,140,220,.15);}
+  .thread .t-h{display:flex;justify-content:space-between;padding:10px 16px 6px;font-size:13px;color:#7fb0e8;}
+  .thread .t-t{padding:0 16px 10px;font-size:16px;color:#e8f1fa;}
+  .thread .t-s{padding:0 16px 12px;color:#7d93ab;font-size:13px;line-height:1.9;}
+  .post{max-width:900px;margin:18px auto;padding:0 16px;display:none;}
+  .p-item{border:1px solid #1e3a58;margin-bottom:14px;background:rgba(10,22,38,.9);}
+  .p-author{width:150px;float:left;padding:16px;text-align:center;color:#7fb0e8;font-size:13px;border-right:1px solid #16304b;}
+  .p-body{margin-left:150px;padding:16px 20px;line-height:2.1;font-size:14.5px;color:#dbe6f2;user-select:text;}
+  .p-body p{margin:0 0 12px;}
+  .hl{color:#ffd98a;} .red{color:#ff9a8a;} .quote{border-left:3px solid #2c5078;padding-left:12px;color:#9db4cc;}
+  .backline{max-width:900px;margin:0 auto 8px;padding:0 16px;}
+  .backline a{color:#7fb0e8;text-decoration:none;font-size:13px;cursor:pointer;}
+  .stamp{display:inline-block;border:2px solid #7a3030;color:#c96a6a;padding:2px 10px;transform:rotate(-4deg);font-size:12px;margin-top:8px;}
+  @media(max-width:700px){.p-author{float:none;width:auto;border-right:none;border-bottom:1px solid #16304b;}.p-body{margin-left:0;}}
+</style>
+</head>
+<body>
+<div class="veil">
+
+<div class="hd">
+  <div><b>🌳 老槐树BBS</b>　<span>江州人的网上老家 · 成立于1999年</span></div>
+  <span>在线：281 人　|　今日帖子：47</span>
+</div>
+<div class="crumb">当前位置：<a onclick="go(null)" style="cursor:pointer;">论坛首页</a> › 城南旧事（怀旧版）</div>
+
+<!-- 版面列表 -->
+<div class="list" id="idx">
+  <div class="thread" onclick="go('bar')">
+    <div class="t-h"><span>北风行</span><span>2002-11-09 21:47　回复 23</span></div>
+    <div class="t-t">江州老馆子回忆杀之「半掩门」——还有多少人记得？</div>
+    <div class="t-s">巷口那棵歪脖子槐树底下，木门永远只开一半……老一辈跑记者的都爱蹲那儿写稿子。</div>
+  </div>
+  <div class="thread" onclick="go('yuyuan')">
+    <div class="t-h"><span>雪梨罐头</span><span>2003-06-18 20:03　回复 31</span></div>
+    <div class="t-t">还记得城郊那个蓝星养育园吗？（附今昔对比）</div>
+    <div class="t-s">路过看了眼，墙都塌了。九八年那场火之后就一直荒着。当年捐款的事，后来有下文吗？</div>
+  </div>
+  <div class="thread" onclick="go('find')">
+    <div class="t-h"><span>过客甲</span><span>2004-03-02 19:12　回复 9　<span class="red">[悬赏]</span></span></div>
+    <div class="t-t">寻找记者陈默（《江北晨报》社会新闻部）</div>
+    <div class="t-s">他的传呼从年初就打不通了。有人见过他的朋友请回帖，或联系其报社 0733-4413 转 采编部。</div>
+  </div>
+</div>
+
+<!-- 半掩门 -->
+<div id="bar" class="post">
+  <div class="backline"><a onclick="go(null)">← 返回版面</a></div>
+  <div class="p-item"><div class="p-author">北风行<br><small style="color:#5f7d9c;">论坛元老</small></div><div class="p-body">
+    <p>1楼：又下雨了，想起半掩门。</p>
+    <p>就在城南槐树巷，木门永远只开一半，老板娘说这叫"留一半清醒留一半醉"。屋里就六张桌子，炖豆腐一绝。</p>
+    <p class="hl">跑记者的老同志都爱蹲那儿写稿子，说那儿安静、茶水管够。有两个年轻记者几乎每周五都来，坐窗边那桌。</p>
+    <p>后来巷子拆了，馆子不知道搬去哪儿了。有知道的兄弟吗？</p>
+  </div></div>
+  <div class="p-item"><div class="p-author">雪梨罐头<br><small style="color:#5f7d9c;">新手上路</small></div><div class="p-body">
+    <p>2楼：我爹以前在那儿喝过酒！说他认识个年轻记者，姓陈，人特轴，为了几百块的账本能跟人拍桌子。</p>
+    <p class="hl">对了，他们那帮人有个习惯，写稿的压缩包都用同一个词当密码，说是行规还是暗号来着……好像是馆子的名字？</p>
+  </div></div>
+  <div class="p-item"><div class="p-author">过客甲<br><small style="color:#5f7d9c;">注册会员</small></div><div class="p-body">
+    <p>3楼：楼上的，馆子名字不就是帖子标题么——<span class="hl red">半掩门</span>。</p>
+    <p>唉，那种小酒馆，现在越来越少喽。</p>
+  </div></div>
+</div>
+
+<!-- 养育园 -->
+<div id="yuyuan" class="post">
+  <div class="backline"><a onclick="go(null)">← 返回版面</a></div>
+  <div class="p-item"><div class="p-author">雪梨罐头<br><small style="color:#5f7d9c;">新手上路</small></div><div class="p-body">
+    <p>1楼：昨天路过城郊，特意去看了眼蓝星养育园旧址。</p>
+    <p>墙塌了一角，铁门锈得只剩一半，窗户全钉着木板。门口那块褪色的牌子居然还挂着，字都快掉没了。</p>
+    <p>98 年那场火之后就一直荒着。<span class="hl">听说后来改成了什么幼儿园，也没开起来几年。</span></p>
+    <p>当年全社会给孩子们捐了二十多万吧？后来有下文吗？有没有懂行的老哥说说。</p>
+  </div></div>
+  <div class="p-item"><div class="p-author">北风行<br><small style="color:#5f7d9c;">论坛元老</small></div><div class="p-body">
+    <p>2楼：有下文。钱"上缴"了一个咨询部，查无此人。</p>
+    <p class="quote">不是我们不想公布，是有些账，公布了要得罪人。——某次饭局上听来的原话</p>
+    <p>去年好像有个记者在查这事，天天往档案馆跑。祝他好运吧。</p>
+    <div class="stamp">本回帖已被版主标记 · 建议核实</div>
+  </div></div>
+  <div class="p-item"><div class="p-author">匿名<br><small style="color:#5f7d9c;">游客</small></div><div class="p-body">
+    <p>3楼：（该楼层因涉及具体单位与个人，已由系统折叠。）</p>
+  </div></div>
+</div>
+
+<!-- 寻人 -->
+<div id="find" class="post">
+  <div class="backline"><a onclick="go(null)">← 返回版面</a></div>
+  <div class="p-item"><div class="p-author">过客甲<br><small style="color:#5f7d9c;">注册会员</small></div><div class="p-body">
+    <p>1楼：替家属发的。《江北晨报》社会新闻部记者<b class="hl">陈默</b>，30 岁，戴细框眼镜，最后露面是去年 12 月 31 日夜里。</p>
+    <p>他的传呼从年初就打不通了，家里电话没人接，报社说他"长期请假"。但据我们所知他没回过外地老家。</p>
+    <p>有人见过他的朋友请回帖，或联系报社 0733-4413 转 采编部。</p>
+    <p class="red">另：他电脑里应该有一份很重要的稿子。如果有人知道什么，拜托了。</p>
+  </div></div>
+  <div class="p-item"><div class="p-author">北风行<br><small style="color:#5f7d9c;">论坛元老</small></div><div class="p-body">
+    <p>2楼：年底那阵还在老槐树见过他一回，一个人坐在窗边发呆，面前摆着杯凉了的茶。</p>
+    <p>想跟他拼桌，他说他在等零点的钟声，「做一个决定」。</p>
+    <p>后来……就没有后来了。兄弟，平安啊。</p>
+  </div></div>
+</div>
+
+</div>
+<script>
+function go(t){
+  document.querySelectorAll('.list,.post').forEach(x=>x.style.display='none');
+  if(!t)document.getElementById('idx').style.display='block';
+  else document.getElementById(t).style.display='block';
+}
+const q=new URLSearchParams(location.search);
+if(q.get('t'))go(q.get('t'));
+try{
+  if(parent.document.getElementById('ie-cur-url')){
+    parent.document.getElementById('ie-cur-url').textContent='http://www.lht-bbs.com.cn/'+(q.get('t')?'?tid='+q.get('t'):'');
+  }
+}catch(e){}
+</script>
+</body>
+</html>

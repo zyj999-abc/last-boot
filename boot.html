@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Booting...</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{width:100vw;height:100vh;background:#000;overflow:hidden;cursor:none;user-select:none;}
+  /* BIOS */
+  #bios{position:absolute;inset:0;padding:24px 30px;color:#cfcfcf;font-family:"Lucida Console","Courier New",monospace;font-size:15px;line-height:1.6;display:block;}
+  .bl{display:none;}
+  .cursor{display:inline-block;width:9px;height:15px;background:#cfcfcf;vertical-align:middle;margin-left:3px;animation:bk .85s step-end infinite;}
+  @keyframes bk{50%{opacity:0}}
+  .epa{float:right;border:1px solid #888;padding:3px 10px;font-size:12px;margin:6px 30px 0 0;}
+  /* XP */
+  #xp{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:#000;}
+  .ms{color:#fff;font-style:italic;font-family:Trebuchet MS;font-size:19px;margin-left:-160px;margin-bottom:-6px;}
+  .wtxt{display:flex;align-items:baseline;}
+  .w1{color:#f2f2f2;font-family:"Franklin Gothic Medium",Arial;font-weight:bold;font-size:64px;letter-spacing:-2px;}
+  .x1{color:#ff6600;font-style:italic;font-family:Trebuchet MS;font-weight:bold;font-size:52px;margin-left:8px;}
+  .pro{color:#4a8deb;font-family:Trebuchet MS;font-weight:bold;font-size:26px;text-align:right;width:230px;margin-top:-12px;padding-right:4px;}
+  .track{position:relative;width:250px;height:16px;border:2px solid #b2b2b2;border-radius:5px;margin-top:70px;overflow:hidden;background:#000;}
+  .blocks{position:absolute;top:1px;left:-58px;display:flex;gap:2px;animation:xp 1.6s linear infinite;}
+  .blocks i{width:9px;height:12px;background:linear-gradient(to bottom,#2b3b8c,#5d7fe0,#2b3b8c);}
+  @keyframes xp{to{left:258px}}
+  .cr{position:absolute;bottom:44px;color:#ddd;font-family:Trebuchet MS;opacity:.85;}
+</style>
+</head>
+<body>
+
+<div id="bios">
+  <div class="epa">ENERGY STAR</div>
+  <div class="bl" id="l1">Phoenix - AwardBIOS v6.00PG, An Energy Star Ally</div>
+  <div class="bl" id="l2">Copyright (C) 1984-2003, Phoenix Technologies, LTD</div>
+  <div class="bl" id="l3"><br>Jiangzhou Union P4X-400 ACPI BIOS Rev 1004</div>
+  <div class="bl" id="l4"><br>Main Processor : Intel(R) Pentium(R) 4 CPU 2.40GHz</div>
+  <div class="bl" id="l5">Memory Testing : <span id="mem">0</span>K OK</div>
+  <div class="bl" id="l6"><br>Primary Master : ST340016A 3.05</div>
+  <div class="bl" id="l7">Primary Slave&nbsp; : None</div>
+  <div class="bl" id="l8">Secondary Master: CD-ROM 52X</div>
+  <div class="bl" id="l9"><br>Press DEL to enter SETUP,&nbsp; F12 for Network Boot</div>
+  <div class="bl" id="l10"><br>Verifying DMI Pool Data ........... <span class="cursor"></span></div>
+</div>
+
+<div id="xp">
+  <div class="ms">Microsoft<span style="font-size:11px;vertical-align:super;">®</span></div>
+  <div class="wtxt"><span class="w1">Windows</span><span class="x1">xp</span></div>
+  <div class="pro">Professional</div>
+  <div class="track"><div class="blocks"><i></i><i></i><i></i></div></div>
+  <div class="cr">Copyright © 1985—2003 Microsoft Corporation</div>
+  <div style="margin-top:26px;color:#666;font-family:'Lucida Console';font-size:11px;">（本作品中的操作系统界面为虚构致敬，非真实微软产品）</div>
+</div>
+
+<script src="assets/js/os.js"></script>
+<script>
+window.addEventListener('DOMContentLoaded',()=>{
+  const t=(id,d)=>Game.Timeline.at(d,()=>document.getElementById(id).style.display='block');
+  t('l1',120);t('l2',240);t('l3',650);t('l4',900);
+  Game.Timeline.at(1150,()=>{
+    document.getElementById('l5').style.display='block';
+    let m=0;
+    Game.Timeline.every(55,()=>{
+      m+=131072;
+      document.getElementById('mem').textContent=m;
+      if(m>=524288){clearInterval(Game._timers[Game._timers.length-1]);}
+    });
+  });
+  t('l6',1500);t('l7',1650);t('l8',1800);t('l9',2250);t('l10',2700);
+
+  Game.Timeline.at(4300,()=>{
+    document.getElementById('bios').style.display='none';
+    try{Sfx.ensure();}catch(e){}
+    Game.Timeline.at(350,()=>{document.getElementById('xp').style.display='flex';});
+    Game.Timeline.at(5200,()=>location.href='login.html');
+  });
+});
+</script>
+</body>
+</html>

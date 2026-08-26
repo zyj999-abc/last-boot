@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>石沉大海 - 最后一次开机</title>
+<link rel="stylesheet" href="assets/css/os.css">
+<style>
+  body{background:#07080d;font-family:"Noto Serif SC","SimSun",serif;color:#cfc9bc;}
+  .bg{position:fixed;inset:0;background:url('assets/img/bg-desk.jpg') center/cover;filter:brightness(.5) saturate(.7);}
+  .stage{position:relative;z-index:10;max-width:720px;margin:0 auto;padding:80px 30px 130px;text-align:center;}
+  .fi{opacity:0;animation:f-up 2.2s ease forwards;}
+  @keyframes f-up{from{opacity:0;}to{opacity:1;}}
+  .tag{font-family:"Courier New";color:#9a948a;font-size:12px;letter-spacing:4px;}
+  h1{font-size:clamp(26px,5vw,36px);letter-spacing:14px;color:#fff;margin:26px 0;}
+  .txt{font-size:16px;line-height:2.55;color:#b5ad9c;margin-bottom:24px;text-align-last:center;}
+  .verse{color:#8a94a8;font-size:17px;letter-spacing:3px;line-height:2.3;margin:40px 0;}
+  .btn{display:inline-block;border:1px solid var(--amber);color:var(--amber);padding:12px 34px;font-size:14px;letter-spacing:4px;text-decoration:none;transition:.4s;}
+  .btn:hover{background:rgba(232,180,90,.12);}
+  .btn.dim{border-color:#565b66;color:#9a948a;}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<div class="stage">
+  <div class="fi" style="animation-delay:.5s;"><div class="tag">EVIDENCE CHAIN INCOMPLETE · REJECTED</div><h1>石 沉 大 海</h1></div>
+
+  <div class="txt fi" style="animation-delay:2s;">
+    编委会的回复只用了四个小时：<br><br>
+    「证据链不完整，单一信源，不予刊发。补充材料后再议。」<br><br>
+    你盯着屏幕坐了很久。窗外的雪把整座城市埋进安静里。
+  </div>
+
+  <div class="txt fi" style="animation-delay:6s;">
+    后来你试着把稿子投给别的报纸，都石沉大海。<br>
+    王满仓的幼儿园照常开了春招。<br>
+    只有 K 的电话，从此换成了空号——他大概以为，是你泄了密。
+  </div>
+
+  <div class="verse fi" style="animation-delay:10s;">
+    差一件证据，差的就是整整一个真相。<br>
+    有些报道写完了，也真的、发不出去。
+  </div>
+
+  <div class="txt fi" style="animation-delay:13s;font-size:14px;color:#8a8271;">
+    提示：回到桌面，找齐全部六件证据（照片 / 录音转写 / 账目 / K 的证词 / 备案档案 / 转院台账），<br>
+    用正确的证据链编号重新提交——真相值得一次完整的出发。
+  </div>
+
+  <div class="fi" style="animation-delay:16s;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+    <a class="btn" href="desktop.html">回到桌面 · 继续调查</a>
+    <a class="btn dim" href="end-d.html">隐藏结局 →</a>
+  </div>
+  <div class="fi" style="animation-delay:18s;margin-top:30px;font-size:13px;color:#6b6455;">END B / 4 —— 《石沉大海》　可返回继续</div>
+</div>
+<script src="assets/js/os.js"></script>
+<script>window.addEventListener('DOMContentLoaded',()=>{try{Sfx.errBeep();}catch(e){}});</script>
+</body>
+</html>

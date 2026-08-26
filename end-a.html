@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>见报 - 最后一次开机</title>
+<link rel="stylesheet" href="assets/css/os.css">
+<style>
+  body{background:#0a0c12;font-family:"Noto Serif SC","SimSun",serif;color:#cfc9bc;}
+  .bg{position:fixed;inset:0;background:url('assets/img/end-press.jpg') center/cover;filter:brightness(.75);}
+  .stage{position:relative;z-index:10;max-width:740px;margin:0 auto;padding:80px 30px 130px;text-align:center;}
+  .fi{opacity:0;animation:f-up 2.2s ease forwards;}
+  @keyframes f-up{from{opacity:0;transform:translateY(16px);}to{opacity:1;}}
+  .tag{font-family:"Courier New";color:#9a948a;font-size:12px;letter-spacing:4px;}
+  h1{font-size:clamp(26px,5vw,36px);letter-spacing:14px;color:#fff;margin:26px 0;}
+  .txt{font-size:16px;line-height:2.5;color:#b5ad9c;margin-bottom:24px;text-align-last:center;}
+  .verse{color:var(--amber);font-size:18px;letter-spacing:3px;line-height:2.3;margin:44px 0;}
+  .dot{width:42px;height:1px;background:#3a362c;margin:38px auto;}
+  .btn{display:inline-block;border:1px solid var(--amber);color:var(--amber);padding:12px 34px;font-size:14px;letter-spacing:4px;text-decoration:none;transition:.4s;}
+  .btn:hover{background:rgba(232,180,90,.12);}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<div class="stage">
+  <div class="fi" style="animation-delay:.5s;"><div class="tag">EVIDENCE CHAIN COMPLETE · PRESS RUN</div><h1>见 报</h1></div>
+
+  <div class="txt fi" style="animation-delay:2s;">
+    零点的钟声敲响时，你按下了「提交编委会」。<br>
+    进度条走得很慢，像那场雪落了一整夜。<br><br>
+    清晨六点，印刷机转起来的时候，王满仓在办公室被带走。<br>
+    那笔沉了五年的二十一万两千元善款，连同伪造的消防验收意见书，一起摊开在了头版上。
+  </div>
+
+  <div class="txt fi" style="animation-delay:6s;">
+    十一个当年被分散安置的孩子，陆续有人看到了报道。<br>
+    有人哭了，有人沉默了很久，有人说：<br>「原来一直有人在找我们。」
+  </div>
+
+  <div class="dot fi" style="animation-delay:9.5s;"></div>
+
+  <div class="verse fi" style="animation-delay:10.5s;">
+    于无声处，存一点真。<br>
+    他没能看到报纸——但每一个字，都是他写的。
+  </div>
+
+  <div class="txt fi" style="animation-delay:13s;font-size:14px;color:#8a8271;">
+    【尾声】你把软盘和磁带寄给了报社资料室存档。<br>
+    桌面壁纸的雪景还亮着。这一次，系统时间终于走到了 2004 年。
+  </div>
+
+  <div class="fi" style="animation-delay:16s;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+    <a class="btn" href="index.html" onclick="localStorage.clear();try{Game.resetAll()}catch(e){};return true;">重新开机</a>
+    <a class="btn" href="end-d.html">查看隐藏结局 →</a>
+  </div>
+  <div class="fi" style="animation-delay:18s;margin-top:30px;font-size:13px;color:#6b6455;">END A / 4 —— 《见报》　真结局</div>
+</div>
+<script src="assets/js/os.js"></script>
+<script>window.addEventListener('DOMContentLoaded',()=>{try{Sfx.startup();}catch(e){}});</script>
+</body>
+</html>

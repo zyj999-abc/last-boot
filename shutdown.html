@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>关闭计算机</title>
+<link rel="stylesheet" href="assets/css/os.css">
+<style>
+  body{background:#003399;}
+  .wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;}
+  .panel{background:var(--xp-face);border-radius:10px;border:3px solid #4a6fd4;box-shadow:0 20px 80px rgba(0,0,0,.7);width:min(560px,92vw);overflow:hidden;}
+  .panel h2{margin:0;padding:12px 20px;background:var(--xp-title-a);color:#fff;font-size:15px;text-shadow:1px 1px 2px #000;}
+  .opts{padding:26px 30px;display:flex;flex-direction:column;gap:14px;}
+  .opt{display:flex;align-items:center;gap:14px;background:#f4f2ea;border:1px solid #d9d4c2;padding:13px 18px;cursor:pointer;transition:.25s;font-size:14px;}
+  .opt:hover{border-color:var(--amber);box-shadow:0 0 12px rgba(232,180,90,.25);}
+  .opt.dis{opacity:.45;cursor:not-allowed;}
+  .opt .ic{font-size:26px;width:34px;text-align:center;}
+  .opt small{display:block;color:#777;font-size:11.5px;margin-top:3px;line-height:1.6;}
+  #blackout{position:fixed;inset:0;background:#000;z-index:100;display:none;color:#333;font-family:"Lucida Console",monospace;font-size:13px;padding:60px;}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="panel">
+    <h2>关闭计算机</h2>
+    <div class="opts">
+      <div class="opt dis"><span class="ic">🌙</span><span>待机(S)<small>（硬盘里有什么在等，别让它睡。）</small></span></div>
+      <div class="opt" onclick="restart()"><span class="ic">↻</span><span>重新启动(R)<small>回到登录界面。也许还有没读完的东西。</small></span></div>
+      <div class="opt" onclick="shutdown()"><span class="ic">⏻</span><span>关闭计算机(U)<small>雪还在下。有些决定，关不掉。</small></span></div>
+      <div class="opt" id="mom-opt" style="display:none;border-color:#c88a2a;" onclick="sendLetter()">
+        <span class="ic">✉️</span><span><b style="color:#8a1f11;">先不关机——把那封信寄出去</b><small>梧桐里 12 号。邮票早就贴好了。（你读懂了他的犹豫）</small></span></div>
+    </div>
+  </div>
+</div>
+
+<div id="blackout"></div>
+
+<script src="assets/js/os.js"></script>
+<script>
+window.addEventListener('DOMContentLoaded',()=>{
+  Game.injectFx();
+  const q=new URLSearchParams(location.search);
+  if(sessionStorage.getItem('lb_result')){
+    // 已在采编系统做出终局选择
+    const r=sessionStorage.getItem('lb_result');
+    sessionStorage.removeItem('lb_result');
+    setTimeout(()=>location.href='end-'+r.toLowerCase()+'.html',300);
+    return;
+  }
+  if(Game.flag('ending_c_unlocked')&&!IS_GUEST_CHECK()){
+    document.getElementById('mom-opt').style.display='flex';
+  }
+});
+function IS_GUEST_CHECK(){return false;}
+function restart(){Sfx.ensure();location.href='login.html';}
+function shutdown(){
+  Sfx.ensure();Sfx.shutdownSnd();
+  document.getElementById('blackout').style.display='block';
+  const lines=['正在保存设置…','Windows 正在关机…','','（2003-12-31 23:59）','零点的钟声没有响。','雪落无声。',''];
+  let i=0;
+  const el=document.getElementById('blackout');
+  Game.Timeline.every(900,()=>{
+    el.textContent+=lines[i]+'\n';i++;
+    if(i>=lines.length){
+      clearInterval(Game._timers[Game._timers.length-1]);
+      Game.Timeline.at(1800,()=>location.href='end-d.html');
+    }
+  });
+}
+function sendLetter(){
+  sessionStorage.setItem('lb_result','C');
+  location.href='end-c.html';
+}
+</script>
+</body>
+</html>

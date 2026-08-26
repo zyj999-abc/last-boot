@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>搜霸一下，你就知道</title>
+<style>
+  body{margin:0;background:#fff;font-family:"SimSun","宋体",Arial;font-size:12px;color:#000;text-align:center;}
+  a{color:#00c;text-decoration:none;}a:hover{color:#f00;text-decoration:underline;}
+  .top{text-align:right;padding:8px 18px;font-size:12px;}
+  .logo{margin:56px 0 14px;}
+  .logo b{font-size:52px;color:#2020c0;letter-spacing:6px;font-weight:bold;font-family:"KaiTi","楷体";position:relative;}
+  .logo i{font-style:normal;color:#e00;font-size:20px;vertical-align:top;position:relative;top:-16px;left:2px;}
+  .nav{margin-bottom:10px;font-size:13px;}.nav a{margin:0 5px;text-decoration:underline;}.nav b{margin:0 5px;}
+  .row{display:inline-block;}
+  #kw{width:380px;height:24px;border:1px solid #7F9DB9;padding:2px 5px;font-size:14px;font-family:inherit;outline:none;vertical-align:middle;}
+  #kw:focus{border-color:#00c;}
+  .go{width:82px;height:28px;margin-left:4px;font-size:14px;font-family:inherit;color:#000;
+    background:#ece9d8;border-top:2px solid #fff;border-left:2px solid #fff;border-bottom:2px solid #808080;border-right:2px solid #808080;
+    cursor:pointer;vertical-align:middle;}
+  .go:active{border-top-color:#808080;border-left-color:#808080;border-bottom-color:#fff;border-right-color:#fff;}
+  .adv{margin-top:14px;font-size:12px;}
+  .res{max-width:640px;margin:26px auto 0;text-align:left;display:none;}
+  .res h3{font-size:14px;font-weight:normal;margin:0 0 3px;}
+  .res h3 a{color:#0000cc;font-size:15px;}
+  .res .s{color:#0a0;line-height:1.7;}
+  .res .u{color:#3a7a3a;font-size:11px;}
+  .res hr{border:none;border-top:1px dotted #ccc;margin:14px 0;}
+  .foot{margin-top:90px;color:#666;line-height:1.9;font-size:12px;}
+  .tip{color:#777;font-size:12px;margin-top:30px;}
+</style>
+</head>
+<body>
+<div class="top"><a href="#">搜霸首页</a> | <a href="#">设置</a> | <a href="#" onclick="parent.parent&&0">登录</a></div>
+
+<div class="logo"><b>搜霸</b><i>®</i></div>
+<div class="nav"><a href="#">新闻</a><b>网页</b><a href="#">贴吧</a><a href="#">知道</a><a href="#">MP3</a><a href="#">图片</a></div>
+<div class="row">
+  <input id="kw" autocomplete="off" onkeydown="if(event.keyCode===13)soSearch(this.value)">
+  <button class="go" onclick="soSearch(document.getElementById('kw').value)">搜霸一下</button>
+</div>
+<div class="adv"><a href="#">把搜霸设为首页</a>　<a href="#">搜霸帮助</a>　<a href="#">高级搜索</a></div>
+
+<div class="res" id="res"></div>
+<div class="tip">提示：试着搜索「蓝星养育园」「陈默」「半掩门」……<br>（关键词会从你看过的网页里自然长出来）</div>
+
+<div class="foot">
+  <div><a href="#">加入搜霸</a> | <a href="#">搜索风云榜</a> | <a href="#">关于搜霸</a> | <a href="#">About SoBa</a></div>
+  <div>©2003 SoBa.com.cn 使用搜霸前必读 江ICP证000173号</div>
+  <div>（本站为虚构作品中的虚构搜索引擎）</div>
+</div>
+
+<script>
+const DB=[
+  {kw:['蓝星养育园','蓝星','养育园'],results:[
+    {t:'江州晚报：一场大火之后——蓝星养育园事件追踪',u:'sites/jznews.html?a=fire',s:'1999-01-04 · 记者述评：火灾无人员伤亡，园区停办，社会各界捐款将专项用于幼儿安置，使用情况择日向社会公布。（该"择日"，至今未至。）'},
+    {t:'老槐树BBS｜还记得城郊那个蓝星养育园吗',u:'sites/forum.html',s:'2003-06-18 · 十几个回帖。老街坊聊起那栋两层小楼、铁门、和一群再也凑不齐的孩子。'}
+  ]},
+  {kw:['陈默','记者陈默','默存'],results:[
+    {t:'竹叶斋·默存｜陈默的个人主页',u:'sites/blog.html',s:'更新停留在 2003-12-31 23:41：《零点之前，做一个决定》（草稿）'},
+    {t:'老槐树BBS｜寻找记者陈默（急，家属情绪稳定但很着急）',u:'sites/forum.html?t=find',s:'2004-03-02 · 「他的传呼从年初就打不通了。有见过他的朋友请回帖或联系其报社。」'}
+  ]},
+  {kw:['江北晨报','晨报'],results:[
+    {t:'江北晨报电子版（试运行）',u:'sites/jznews.html',s:'江州市主流都市报·社会新闻部热线：0733-4413 转 采编部'}
+  ]},
+  {kw:['半掩门','酒馆','酒吧'],results:[
+    {t:'老槐树BBS｜江州老馆子回忆杀之「半掩门」',u:'sites/forum.html?t=bar',s:'2002-11-09 · 「老一辈跑记者的都爱蹲那儿写稿子，老板娘的炖豆腐一绝。后来巷子拆了，馆子也不知道搬去哪儿了。」'}
+  ]},
+  {kw:['王满仓','小星星幼儿园','小星星'],results:[
+    {t:'江州晚报：小星星幼儿园顺利通过年度检查',u:'sites/jznews.html?a=star',s:'2002-04-16 · 举办人王满仓表示："一定办人民放心的学前教育。"'}
+  ]}
+];
+function soSearch(kwRaw){
+  const kw=(kwRaw||'').replace(/\s+/g,'');
+  if(!kw)return;
+  const box=document.getElementById('res');
+  let hits=[];
+  DB.forEach(e=>{if(e.kw.some(k=>kw.indexOf(k)>=0||k.indexOf(kw)>=0))hits=hits.concat(e.results);});
+  if(!hits.length){
+    box.style.display='block';
+    box.innerHTML='<p style="color:#666;">抱歉，搜霸没有找到与「'+kw.replace(/</g,'&lt;')+'」相关的网页。</p><p style="color:#888;font-size:12px;">试试：<a href="#" onclick="soSearch(\'蓝星养育园\');return false">蓝星养育园</a> · <a href="#" onclick="soSearch(\'陈默\');return false">陈默</a> · <a href="#" onclick="soSearch(\'半掩门\');return false">半掩门</a></p>';
+    return;
+  }
+  let html='';
+  hits.forEach(h=>{
+    const inner=h.u.replace(/^sites\//,'').replace('.html','')+(h.u.split('?')[1]?('?'+h.u.split('?')[1]):'');
+    html+='<h3><a href="'+h.u+'" data-u="'+inner+'">'+h.t+'</a></h3><div class="s">'+h.s+'</div><div class="u">www.soba.com.cn → '+inner+'</div><hr>';
+  });
+  box.innerHTML='<p style="color:#666;margin:0 0 6px;">找到约 '+hits.length+' 篇相关结果，用时 0.08 秒</p>'+html;
+  box.style.display='block';
+  /* 站内导航：在 iframe 内打开并同步 IE 地址栏 */
+  box.querySelectorAll('h3 a').forEach(a=>{
+    a.onclick=ev=>{
+      ev.preventDefault();
+      const pre=location.pathname.indexOf('/sites/')>=0?'../':'';
+      location.href=pre+a.getAttribute('href');
+    };
+  });
+}
+/* 从URL参数取词 */
+const p=new URLSearchParams(location.search);
+if(p.get('q'))soSearch(p.get('q'));
+</script>
+</body>
+</html>

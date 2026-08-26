@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新主人的信 - 最后一次开机</title>
+<link rel="stylesheet" href="assets/css/os.css">
+<style>
+  body{background:#000;font-family:"Noto Serif SC","SimSun",serif;color:#cfc9bc;}
+  .bg{position:fixed;inset:0;background:url('assets/img/img-crt.jpg') center/cover;filter:brightness(.55);animation:jit .16s steps(2) infinite;}
+  @keyframes jit{50%{transform:translate(-2px,1px);}}
+  .stage{position:relative;z-index:10;max-width:700px;margin:0 auto;padding:70px 30px 120px;}
+  .letter{background:#f7f2e4;color:#3a3226;padding:44px 48px;font-family:"KaiTi","楷体",serif;font-size:16px;line-height:2.35;box-shadow:0 24px 80px rgba(0,0,0,.85), inset 0 0 60px rgba(160,140,90,.15);transform:rotate(.5deg);}
+  .letter h2{text-align:center;font-weight:normal;letter-spacing:6px;margin-bottom:20px;}
+  .letter p{margin-bottom:14px;text-indent:2em;}
+  .letter .sign{text-align:right;}
+  .fi{opacity:0;animation:f-up 2s ease forwards;}
+  @keyframes f-up{from{opacity:0;}to{opacity:1;}}
+  .btnrow{text-align:center;margin-top:44px;}
+  .btn{display:inline-block;border:1px solid var(--amber);color:var(--amber);padding:12px 34px;font-size:14px;letter-spacing:4px;text-decoration:none;transition:.4s;}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+
+<div class="stage">
+  <div class="fi" style="animation-delay:.4s;">
+    <div style="text-align:center;color:#9fc3ea;font-family:'Courier New';font-size:12px;letter-spacing:4px;margin-bottom:26px;">RECYCLE BIN · RESTORED FILE · 未命名.txt（1）</div>
+    <div class="letter">
+      <h2>给新主人的信</h2>
+      <p>你好。</p>
+      <p>如果你读到了这封信，说明你把这台电脑里的每一个角落都翻过了。谢谢你没有半途关机，也谢谢你在那个零点，替我做完了决定——不管你选的是哪一个。</p>
+      <p>我是陈默。或者说，是那个叫过很多名字的孩子。写稿子的时候我总以为自己是在替别人讨公道，写到最后一页才发现，笔尖一直指着自己。</p>
+      <p>有几件事想拜托你：</p>
+      <p>一、如果真相已经见报，请偶尔记得那十一个孩子的名字，他们不是新闻编号；如果信寄到了我妈手里，请相信她比谁都勇敢。</p>
+      <p>二、别学我在雪夜里一个人扛。该说的话，趁早说；该寄的信，趁早寄。</p>
+      <p>三、这台机器就送你了。壁纸的雪景其实是我拍的，江州很少下这么大的雪。</p>
+      <p class="sign">—— 陈默　于最后一次开机之前</p>
+      <p style="text-align:center;color:#8a1f11;">（又：屏幕右下角的时间，现在是你自己的了吧？）</p>
+    </div>
+  </div>
+
+  <div class="btnrow fi" style="animation-delay:2.5s;">
+    <a class="btn" href="index.html">关机 · 谢谢惠顾</a>
+  </div>
+  <div class="fi" style="animation-delay:3.5s;text-align:center;margin-top:26px;font-size:13px;color:#6b6455;">
+    END D / 4 —— 《新主人的信》　隐藏结局 · 致每一位玩家<br><br>
+    《最后一次开机》 THE LAST BOOT<br>
+    剧本/工程：基于《Fishswimming》《her-old-laptop》《长夜电台》学习笔记的创作实践<br>
+    美术：SenseNova U1.5 · 音效：Web Audio 实时合成 · 全部人名地名机构网站均为虚构
+  </div>
+</div>
+<script src="assets/js/os.js"></script>
+<script>window.addEventListener('DOMContentLoaded',()=>{try{Sfx.startup();}catch(e){}});</script>
+</body>
+</html>

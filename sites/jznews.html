@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>江北晨报电子版 - 江州新闻网 jznews.net</title>
+<style>
+  body{margin:0;background:#f5f2e8;font-family:"SimSun","宋体",serif;color:#222;font-size:14px;}
+  .masthead{background:linear-gradient(#8c1a1a,#6d1010);color:#fff;padding:10px 22px;display:flex;justify-content:space-between;align-items:center;}
+  .masthead h1{font-size:26px;letter-spacing:4px;font-weight:bold;margin:0;}
+  .masthead span{font-size:12px;opacity:.85;}
+  .nav{background:#fff;border-bottom:3px double #8c1a1a;padding:6px 22px;font-size:13px;}
+  .nav b{color:#8c1a1a;margin-right:16px;} .nav a{color:#333;text-decoration:none;margin-right:16px;}
+  .wrap{max-width:760px;margin:20px auto;background:#fff;border:1px solid #ddd;padding:34px 44px;}
+  .art{display:none;}
+  .art.on{display:block;}
+  .art h2{font-size:21px;text-align:center;line-height:1.7;margin-bottom:8px;}
+  .art .m{text-align:center;color:#888;font-size:12.5px;border-bottom:1px solid #eee;padding-bottom:12px;margin-bottom:18px;}
+  .art p{line-height:2.15;text-indent:2em;margin:0 0 14px;}
+  .art img.ev{max-width:420px;display:block;margin:14px auto;border:4px solid #f0ede2;box-shadow:0 3px 10px rgba(0,0,0,.25);}
+  .art .cap{text-align:center;color:#777;font-size:12px;margin:-6px 0 16px;}
+  .home-item{border-bottom:1px dotted #ccc;padding:10px 2px;cursor:pointer;}
+  .home-item:hover{background:#fbf9f2;}
+  .home-item b{font-size:15.5px;font-weight:normal;}
+  .home-item div{color:#777;font-size:12.5px;margin-top:4px;}
+  .foot{max-width:760px;margin:14px auto 30px;text-align:center;color:#999;font-size:12px;line-height:1.9;}
+</style>
+</head>
+<body>
+
+<div class="masthead"><h1>江北晨报 · 电子版</h1><span>2003年12月31日 星期三 农历腊月初九</span></div>
+<div class="nav"><b>要闻</b><b>江州</b><a>社会</a><a>财经</a><a>文体</a><a>证券</a><a>副刊</a></div>
+
+<div class="wrap">
+  <!-- 首页列表 -->
+  <div id="idx" class="art on">
+    <div class="home-item" onclick="show('fire')">
+      <b>【旧闻重提】一场大火之后——蓝星养育园事件追踪（1999.01.04）</b>
+      <div>记者述评 · 社会版 | 火灾无人员伤亡，园区停办，善款使用"择日公布"……</div>
+    </div>
+    <div class="home-item" onclick="show('star')">
+      <b>小星星幼儿园顺利通过年度检查（2002.04.16）</b>
+      <div>教育新闻 | 举办人王满仓："一定办人民放心的学前教育。"</div>
+    </div>
+    <div class="home-item" onclick="show('note')">
+      <b>【编辑部公告】电子版试运行 & 采编系统使用说明（2003.12.20）</b>
+      <div>本报讯 | 采编系统仅限本报记者编辑凭工号登录……</div>
+    </div>
+    <div class="home-item" onclick="show('weather')">
+      <b>明日天气：小雪转中雪，-11℃ ~ -3℃（2003.12.31）</b>
+      <div>生活服务 | 江州市气象台发布道路结冰黄色预警</div>
+    </div>
+  </div>
+
+  <!-- 火灾追踪 -->
+  <div id="fire" class="art">
+    <h2>一场大火之后<br>——蓝星养育园事件追踪</h2>
+    <div class="m">本报记者 述评 · 刊于 1999 年 1 月 4 日《江北晨报》社会版</div>
+    <p>1998 年 12 月 26 日凌晨，位于城郊结合部的蓝星养育园突发火灾。因疏散及时，园内 34 名幼儿及 9 名职工无一伤亡。火灾原因经初步认定为配电线路老化。</p>
+    <img class="ev" src="../assets/img/img-fire-news.jpg" alt="">
+    <div class="cap">消防人员赶到时，火势已被园区职工自发控制（资料照片）</div>
+    <p>火灾发生后第五天，社会各界捐助善款人民币二十八万六千元到账，指定用于幼儿临时安置与过渡生活。园区同日宣布停办。</p>
+    <p>本报记者在安置点看到，孩子们的棉衣多由职工与街坊凑钱购买。一位不愿具名的职工说："钱是大家的爱心，账要算得清清楚楚，才对得起孩子。"</p>
+    <p>园区负责人王满仓接受采访时表示，善款将设立专户、专项管理，<b>"使用情况将择日向社会公布"</b>。</p>
+    <p>截至发稿，该"择日"尚未到来。本报将持续关注。</p>
+    <p style="text-align:right;color:#777;font-size:12px;">（本文刊发后，追踪报道因故中止。）</p>
+    <button class="xp-button" onclick="show(null)">← 返回目录</button>
+  </div>
+
+  <!-- 年检 -->
+  <div id="star" class="art">
+    <h2>小星星幼儿园顺利通过年度检查</h2>
+    <div class="m">刊于 2002 年 4 月 16 日《江北晨报》教育新闻版</div>
+    <p>本报讯 近日，位于原蓝星养育园址的民办小星星幼儿园顺利通过区教育文化委员会年度检查。举办人王满仓介绍，园舍于 2000 年自筹资金改建，现有在园幼儿 120 名。</p>
+    <p>检查组认为，该园"消防验收手续齐备、管理制度健全"。王满仓表示："过去的事情已经翻篇，一定办人民放心的学前教育。"</p>
+    <p style="color:#999;font-size:12.5px;">（编者按：文中所称"消防验收意见书"，后经查证系伪造文书——此结论见陈默未刊稿。）</p>
+    <button class="xp-button" onclick="show(null)">← 返回目录</button>
+  </div>
+
+  <!-- 采编公告 -->
+  <div id="note" class="art">
+    <h2>编辑部公告：电子版试运行</h2>
+    <div class="m">刊于 2003 年 12 月 20 日</div>
+    <p>为提高采编效率，本报内部采编系统（jb.jznews.net/caibian）现已接入电子版流程。系统<b>仅限本报记者、编辑凭工号登录</b>；稿件提交须填写完整证据链编号，由编委会审核后进入刊发流程。</p>
+    <p>社会新闻部热线：0733-4413 转 采编部。</p>
+    <button class="xp-button" onclick="show(null)">← 返回目录</button>
+  </div>
+
+  <!-- 天气 -->
+  <div id="weather" class="art">
+    <h2>明日小雪转中雪　-11℃ ~ -3℃</h2>
+    <div class="m">江州市气象台 12 月 31 日 17 时发布</div>
+    <p>预计今夜到明天，我市有一次明显降雪天气过程，路面将有结冰，请注意交通安全。元旦期间气温持续偏低，请读者朋友添衣保暖。</p>
+    <p style="color:#999;font-size:12.5px;">（这一年冬天，特别长。）</p>
+    <button class="xp-button" onclick="show(null)">← 返回目录</button>
+  </div>
+</div>
+
+<div class="foot">江北晨报社 版权所有 · 江ICP备000096号<br>（本站为虚构作品中的虚构报纸网站）</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.art').forEach(a=>a.classList.remove('on'));
+  if(id){document.getElementById(id).classList.add('on');parent.parent&&0;
+    try{parent.window.historyStackPush&&0}catch(e){}
+  }else{document.getElementById('idx').classList.add('on');}
+}
+const p=new URLSearchParams(location.search);
+if(p.get('a'))show(p.get('a'));
+/* 让IE地址栏同步 */
+try{
+  const map={fire:'jznews.html?a=fire',star:'jznews.html?a=star'};
+  if(parent.document.getElementById('ie-cur-url'))parent.document.getElementById('ie-cur-url').textContent='http://www.jznews.net/'+(map[p.get('a')]||'');
+}catch(e){}
+</script>
+</body>
+</html>
