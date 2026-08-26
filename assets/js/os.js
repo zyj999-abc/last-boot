@@ -229,6 +229,7 @@ const WM = {
     else if (opt.content) w.querySelector('.win-body').appendChild(opt.content);
 
     document.getElementById('desktop').appendChild(w);
+    w.style.display='flex'; // ★ 关键：CSS 默认 display:none，创建后立即可见
     const rec={el:w,title:opt.title,icon:opt.icon||'📁',onClose:opt.onClose,minimized:false};
     this.wins[id]=rec;
 
