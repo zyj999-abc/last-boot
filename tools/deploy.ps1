@@ -1,4 +1,4 @@
-# 《最后一次开机》GitHub 发布脚本（Git Data API，单提交）
+# 《最后一次开机》 GitHub 发布/更新脚本 v2（支持空仓与已有仓库）
 param(
   [string]$Tok = $env:GH_TOKEN,
   [string]$Owner = 'zyj999-abc',
@@ -14,12 +14,20 @@ function Api($method,$url,$obj){
   Invoke-RestMethod -Uri $url -Method $method -Headers $h -Body $json -ContentType 'application/json' -TimeoutSec 240
 }
 
-# 引导空仓库
-$boot = Api Put "$base/contents/bootstrap.md" @{ message='bootstrap'; content=[Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('init')) }
-$parent = $boot.commit.sha
-Write-Output "bootstrap=$parent"
+# ---- 取基线：main 是否存在 ----
+$parent=$null; $baseTree=$null
+try{
+  $ref = Invoke-RestMethod -Uri "$base/git/ref/heads/main" -Headers $h -TimeoutSec 60
+  $parent = $ref.object.sha
+  $c = Invoke-RestMethod -Uri "$base/git/commits/$parent" -Headers $h
+  $baseTree = $c.tree.sha
+  Write-Output ("baseline commit=" + $parent.Substring(0,8))
+}catch{
+  Write-Output 'baseline: none (will bootstrap)'
+}
 
-$files = Get-ChildItem $Src -Recurse -File | Where-Object { $_.FullName -notmatch '\\\.git\\' -and $_.Name -ne 'push-via-api.ps1' }
+# ---- 收集文件 ----
+$files = Get-ChildItem $Src -Recurse -File | Where-Object { $_.FullName -notmatch '\\\.git\\' }
 Write-Output ("files=" + $files.Count)
 
 $items=@(); $i=0
@@ -29,21 +37,43 @@ foreach($f in $files){
   $b64 = [Convert]::ToBase64String([IO.File]::ReadAllBytes($f.FullName))
   $blob = Api Post "$base/git/blobs" @{ content=$b64; encoding='base64' }
   $items += @{ path=$rel; mode='100644'; type='blob'; sha=$blob.sha }
-  Write-Output ("{0:D2}/{1:D2} {2}" -f $i,$files.Count,$rel)
+  Write-Output ("blob {0:D2}/{1:D2} {2}" -f $i,$files.Count,$rel)
 }
-$tree = Api Post "$base/git/trees" @{ tree=$items }
-$commit = Api Post "$base/git/commits" @{ message='feat: 《最后一次开机 The Last Boot》 initial release - Windows XP 拟真解谜'; tree=$tree.sha; parents=@($parent) }
-try{ Api Post "$base/git/refs" @{ ref='refs/heads/main'; sha=$commit.sha } | Out-Null }catch{
+
+# ---- 建 tree / commit / 移动 main ----
+if($baseTree){ $tree = Api Post "$base/git/trees" @{ base_tree=$baseTree; tree=$items } }
+else{ $tree = Api Post "$base/git/trees" @{ tree=$items } }
+Write-Output ("tree=" + $tree.sha)
+
+$msg = 'update: site refresh ' + (Get-Date -Format 'yyyy-MM-dd HH:mm')
+if($parent){
+  $commit = Api Post "$base/git/commits" @{ message=$msg; tree=$tree.sha; parents=@($parent) }
   Api Patch "$base/git/refs/heads/main" @{ sha=$commit.sha; force=$true } | Out-Null
+}else{
+  # 空仓库兜底：先建一个引导文件提交
+  $boot = Api Put "$base/contents/bootstrap.md" @{ message='bootstrap'; content=[Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes('init')) } 
+  $bp = $boot.commit.sha
+  $t2items = @(); foreach($it in $items){ if($it.path -ne 'bootstrap.md'){ $t2items += $it } }
+  $t2 = Api Post "$base/git/trees" @{ base_tree=$tree.sha; tree=$t2items }
+  $c2 = Api Post "$base/git/commits" @{ message=$msg; tree=$t2.sha; parents=@($bp) }
+  Api Post "$base/git/refs" @{ ref='refs/heads/main'; sha=$c2.sha } | Out-Null
 }
-# 删除引导文件（树替换后可能已不存在，忽略404）
-try{
-  Invoke-RestMethod -Uri "$base/contents/bootstrap.md" -Method Delete -Headers $h -Body (@{message='cleanup';sha=$boot.content.sha;branch='main'}|ConvertTo-Json) -ContentType 'application/json' | Out-Null
-}catch{ Write-Output 'bootstrap already gone (ok)' }
 Write-Output 'PUSH OK'
-# 开启 Pages(workflow模式)
-try{ Api Post "$base/pages" @{ build_type='workflow' } | Out-Null; Write-Output 'pages enabled' }catch{ Write-Output ("pages: " + $_.Exception.Message) }
-# 重跑最新 workflow
+
+# ---- Pages 触发 ----
 Start-Sleep 6
-$run = (Api Get "$base/actions/runs?per_page=1").workflow_runs[0]
-if($run){ try{ Invoke-RestMethod -Uri "$base/actions/runs/$($run.id)/rerun" -Method Post -Headers $h | Out-Null; Write-Output ("rerun "+$run.id) }catch{ Write-Output 'rerun skipped' } }
+try{
+  Invoke-RestMethod -Uri "$base/actions/workflows/deploy.yml/dispatches" -Method Post -Headers $h -Body (@{ref='main'}|ConvertTo-Json) -ContentType 'application/json'
+  Write-Output 'workflow dispatched'
+}catch{ Write-Output ('dispatch note: ' + $_.Exception.Message) }
+
+for($k=0;$k -lt 24;$k++){
+  Start-Sleep 10
+  try{ $run=(Invoke-RestMethod -Uri "$base/actions/runs?per_page=1" -Headers $h).workflow_runs[0] }catch{continue}
+  if(-not $run){continue}
+  Write-Output ("[{0:D2}s] run {1} {2} {3}" -f (($k+1)*10),$run.id,$run.status,$run.conclusion)
+  if($run.status -eq 'completed'){
+    if($run.conclusion -eq 'success'){ try{ Invoke-RestMethod -Uri "$base/actions/runs/$($run.id)/rerun" -Method Post -Headers $h|Out-Null }catch{} }
+    break
+  }
+}
