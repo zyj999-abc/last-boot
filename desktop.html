@@ -4,10 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Windows XP</title>
-<link rel="stylesheet" href="assets/css/os.css">
-<style>
-  #desktop{background-image:url('assets/img/wp-snow.jpg');}
-</style>
+<link rel="stylesheet" href="assets/css/os.css?v=11">
+<link rel="stylesheet" href="assets/css/icons.css?v=11">
 </head>
 <body>
 
@@ -18,13 +16,13 @@
 </div>
 
 <div id="taskbar">
-  <div id="start-btn">🪟 开始</div>
+  <div id="start-btn"><span class="flag"><i></i><i></i><i></i><i></i></span>开始</div>
   <div id="task-buttons"></div>
-  <div id="tray"><span title="本地连接已断开">🔌</span><span>🔊</span><span id="clock">23:47</span></div>
+  <div id="tray"><span title="本地连接已断开" style="font-size:12px;">🔌</span><span style="font-size:12px;">🔊</span><span id="clock">23:47</span></div>
 </div>
 
 <div id="start-menu">
-  <div class="sm-header"><div class="avatar"></div><b id="sm-user">陈 默</b></div>
+  <div class="sm-header"><div class="avatar" id="sm-avatar"></div><b id="sm-user">陈 默</b></div>
   <div style="display:flex;">
     <div class="sm-items" style="flex:1.2;" id="sm-left"></div>
     <div class="sm-items sm-right" style="flex:1;" id="sm-right"></div>
@@ -46,15 +44,15 @@ Technical information:
 
 —— 这不是真的蓝屏。这是这台电脑想给你看的记忆。</div>
 
-<script src="assets/js/os.js"></script>
-<script src="assets/js/data.js"></script>
+<script src="assets/js/os.js?v=11"></script>
+<script src="assets/js/data.js?v=11"></script>
 <script>
 /* ============ 初始化 ============ */
 const IS_GUEST = location.search.includes('guest') || sessionStorage.getItem('lb_guest')==='1';
 const DESK = document.getElementById('desktop');
 
 window.addEventListener('DOMContentLoaded',()=>{
-  Game.injectFx();
+  Game.injectFx({scanlines:false,vignette:false});
   buildDesktop();
   bindGlobal();
   document.getElementById('clock').textContent='23:47';
@@ -66,6 +64,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     DESK.classList.add('guest-mode');
     setTimeout(()=>Game.monologue('来宾模式。大部分门都锁着……但也许，正需要这样慢慢看。',6000),900);
   }else{
+    document.getElementById('sm-avatar').style.background="url('assets/img/img-chenmo.jpg') center/cover";
     setTimeout(()=>{Game.balloon('江州邮局','您有 1 封未读邮件。双击桌面「江州邮局」查看。',8000);},2600);
     setTimeout(()=>Game.monologue('雪还在下。这台机器的主人，去哪儿了？',6000),1000);
   }
@@ -75,27 +74,33 @@ function logout(){ WM.closeAll(); Game.goto('login.html'); }
 function doShutdown(){ Game.goto('shutdown.html'); }
 
 /* ============ 桌面图标 ============ */
+const DESK_ICONS = {
+  mycomp:{c:'ic-mycomp'}, mydocs:{c:'ic-folder'}, mail:{c:'ic-mail'},
+  ie:{c:'ic-ie'}, notepad:{c:'ic-note'}, recycle:{c:'ic-recycle'},
+  media:{c:'ic-wmp'}, calendar:{c:'ic-cal'}, recent:{c:'ic-folder'}
+};
 function buildDesktop(){
   const icons = IS_GUEST ? [
-    {id:'calendar', icon:'📅', label:'日历', x:26,y:26},
-    {id:'recent',   icon:'📂', label:'最近使用的文档', x:26,y:126},
-    {id:'mydocs',   icon:'📁', label:'我的文档', x:26,y:226},
-    {id:'mail',     icon:'📮', label:'江州邮局', x:26,y:326},
-    {id:'ie',       icon:'🌐', label:'Internet Explorer', x:26,y:426},
-    {id:'recycle',  icon:'🗑️', label:'回收站', x:26,y:526},
+    {id:'calendar', label:'日历', x:26,y:26},
+    {id:'recent',   label:'最近使用的文档', x:26,y:126},
+    {id:'mydocs',   label:'我的文档', x:26,y:226},
+    {id:'mail',     label:'江州邮局', x:26,y:326},
+    {id:'ie',       label:'Internet Explorer', x:26,y:426},
+    {id:'recycle',  label:'回收站', x:26,y:526},
   ] : [
-    {id:'mycomp', icon:'🖥️', label:'我的电脑', x:26,y:26},
-    {id:'mydocs', icon:'📁', label:'我的文档', x:26,y:126},
-    {id:'mail',   icon:'📮', label:'江州邮局', x:26,y:226},
-    {id:'ie',     icon:'🌐', label:'Internet Explorer', x:26,y:326},
-    {id:'notepad',icon:'📝', label:'记事本', x:26,y:426},
-    {id:'recycle',icon:'🗑️', label:'回收站', x:26,y:526},
-    {id:'media',  icon:'🎵', label:'媒体播放器', x:128,y:26},
+    {id:'mycomp', label:'我的电脑', x:26,y:26},
+    {id:'mydocs', label:'我的文档', x:26,y:126},
+    {id:'mail',   label:'江州邮局', x:26,y:226},
+    {id:'ie',     label:'Internet Explorer', x:26,y:326},
+    {id:'notepad',label:'记事本', x:26,y:426},
+    {id:'recycle',label:'回收站', x:26,y:526},
+    {id:'media',  label:'媒体播放器', x:128,y:26},
   ];
   icons.forEach(cfg=>{
     const d=document.createElement('div');
     d.className='dicon';d.style.left=cfg.x+'px';d.style.top=cfg.y+'px';
-    d.innerHTML='<div class="ico">'+cfg.icon+'</div><span class="lbl">'+cfg.label+'</span>';
+    const cls=(DESK_ICONS[cfg.id]||{}).c||'ic-app';
+    d.innerHTML='<div class="ico"><span class="ic '+cls+'"></span></div><span class="lbl">'+cfg.label+'</span>';
     d.ondblclick=()=>openApp(cfg.id);
     d.onclick=e=>{document.querySelectorAll('.dicon').forEach(x=>x.classList.remove('selected'));d.classList.add('selected');};
     d.oncontextmenu=e=>{
@@ -143,11 +148,15 @@ function openApp(id){
 }
 
 /* ============ 我的电脑 / 软盘 / C盘 ============ */
+function driveIco(name){
+  const M={'hdd':'ic-hdd','floppy':'ic-floppy','cd':'ic-cd','folder':'ic-folder'};
+  return '<span class="ic sm '+(M[name]||'ic-app')+'"></span>';
+}
 const TREE_ROOT=[
-  {name:'本地磁盘 (C:)', icon:'💽', act:()=>appDriveC()},
-  {name:'3.5 软盘 (A:)', icon:'💾', act:()=>Game.flag('floppy_in')?appFloppy():floppyPrompt()},
-  {name:'CD 驱动器 (D:)', icon:'💿', act:()=>WM.dialog('💿','请插入光盘。')},
-  {name:'我的文档', icon:'📁', act:()=>appExplorer()},
+  {name:'本地磁盘 (C:)', ico:'hdd', act:()=>appDriveC()},
+  {name:'3.5 软盘 (A:)', ico:'floppy', act:()=>Game.flag('floppy_in')?appFloppy():floppyPrompt()},
+  {name:'CD 驱动器 (D:)', ico:'cd', act:()=>WM.dialog('💿','请插入光盘。')},
+  {name:'我的文档', icon:'📁', ic:'folder', act:()=>appExplorer()},
 ];
 function appMyComputer(){
   const body=document.createElement('div');
@@ -155,11 +164,11 @@ function appMyComputer(){
     '<div class="ex-panel"><h4>系统任务</h4><div>查看系统信息</div><div>添加/删除程序</div></div>'+
     '<div class="ex-panel"><h4>其它位置</h4><div onclick="openApp(\'mydocs\')">我的文档</div><div onclick="openApp(\'recycle\')">回收站</div></div>'+
     '</div><div class="ex-main"><div class="fgrid" id="mc-grid"></div></div></div>';
-  WM.create({id:'mycomp',title:'我的电脑',icon:'🖥️',width:640,height:430,content:body});
+  WM.create({id:'mycomp',title:'我的电脑',icon:driveIco('folder'),width:640,height:430,content:body});
   const g=body.querySelector('#mc-grid');
   TREE_ROOT.forEach(it=>{
     const f=document.createElement('div');f.className='fitem';
-    f.innerHTML='<div class="fi">'+it.icon+'</div><div class="fn">'+it.name+'</div>';
+    f.innerHTML='<div class="fi">'+driveIco(it.ico)+'</div><div class="fn">'+it.name+'</div>';
     f.ondblclick=it.act;
     g.appendChild(f);
   });
@@ -183,11 +192,11 @@ function appFloppy(){
   if(!Game.flag('floppy_in')){floppyPrompt();return;}
   const body=document.createElement('div');
   body.innerHTML='<div class="crumbbar">💾 3.5 软盘 (A:)</div><div class="fgrid" id="fl-grid" style="padding:10px;"></div>';
-  WM.create({id:'a-drive',title:'3.5 软盘 (A:)',icon:'💾',width:520,height:340,content:body});
+  WM.create({id:'a-drive',title:'3.5 软盘 (A:)',icon:'<span class="ic xs ic-floppy"></span>',width:520,height:340,content:body});
   const g=body.querySelector('#fl-grid');
   FLOPPY.files.forEach(f=>{
     const el=document.createElement('div');el.className='fitem';
-    el.innerHTML='<div class="fi">'+(f.kind==='img'?'🖼️':'📃')+'</div><div class="fn">'+f.name+'</div>';
+    el.innerHTML='<div class="fi"><span class="ic sm '+(f.kind==='img'?'ic-pic':'ic-txt')+'"></span></div><div class="fn">'+f.name+'</div>';
     el.ondblclick=()=>{
       if(f.kind==='txt'){appNotepad({title:f.name,text:f.body});markTransfer();}
       else viewImage(f.src,f.caption,'kword');
@@ -205,16 +214,17 @@ function markTransfer(){
 function appDriveC(){
   const body=document.createElement('div');
   body.innerHTML='<div class="crumbbar">💽 本地磁盘 (C:)</div><div class="fgrid" id="c-grid" style="padding:10px;"></div>';
-  WM.create({id:'drive-c',title:'本地磁盘 (C:)',icon:'💽',width:560,height:360,content:body});
+  WM.create({id:'drive-c',title:'本地磁盘 (C:)',icon:'<span class="ic xs ic-hdd"></span>',width:560,height:360,content:body});
   const g=body.querySelector('#c-grid');
   [
-    {n:'Documents and Settings',i:'📁',act:()=>WM.dialog('🔒','访问拒绝：这不是你的账户。')},
-    {n:'Program Files',i:'📁',act:()=>appFolderGeneric('Program Files',['Internet Explorer','江州邮局','易聊 2003','Media Player','搜霸助手'])},
-    {n:'WINDOWS',i:'📁',act:()=>appFolderGeneric('WINDOWS',['system32','Fonts','Web'])},
-    {n:'系统备份_勿动',i:'⚠️',act:()=>triggerBsod()},
+    {n:'Documents and Settings',ic:'folder',act:()=>WM.dialog('🔒','访问拒绝：这不是你的账户。')},
+    {n:'Program Files',ic:'folder',act:()=>appFolderGeneric('Program Files',['Internet Explorer','江州邮局','易聊 2003','Media Player','搜霸助手'])},
+    {n:'WINDOWS',ic:'folder',act:()=>appFolderGeneric('WINDOWS',['system32','Fonts','Web'])},
+    {n:'系统备份_勿动',ic:'app',act:()=>triggerBsod()},
   ].forEach(it=>{
     const f=document.createElement('div');f.className='fitem';
-    f.innerHTML='<div class="fi">'+it.i+'</div><div class="fn">'+it.n+'</div>';f.ondblclick=it.act;g.appendChild(f);
+    f.innerHTML='<div class="fi"><span class="ic sm ic-'+it.ic+'"></span></div><div class="fn">'+it.n+'</div>';
+    f.ondblclick=it.act;g.appendChild(f);
   });
   const used=document.createElement('div');used.style.cssText='padding:8px 12px;color:#666;width:100%;';
   used.innerHTML='<hr style="border:none;border-top:1px solid #ddd;margin-bottom:8px;">容量：40.0 GB　可用：21.3 GB';
@@ -223,11 +233,11 @@ function appDriveC(){
 function appFolderGeneric(title,items){
   const body=document.createElement('div');
   body.innerHTML='<div class="crumbbar">📁 '+title+'</div><div class="fgrid" id="fg" style="padding:10px;"></div>';
-  WM.create({id:'folder-'+title,title:title,icon:'📁',width:480,height:320,content:body});
+  WM.create({id:'folder-'+title,title:title,icon:'<span class="ic xs ic-folder"></span>',width:480,height:320,content:body});
   const g=body.querySelector('#fg');
   items.forEach(n=>{
     const f=document.createElement('div');f.className='fitem';
-    f.innerHTML='<div class="fi">📄</div><div class="fn">'+n+'</div>';
+    f.innerHTML='<div class="fi"><span class="ic sm ic-app"></span></div><div class="fn">'+n+'</div>';
     f.ondblclick=()=>WM.dialog('ℹ️','无法打开「'+n+'」。<br>该文件与当前剧情无关。');
     g.appendChild(f);
   });
@@ -260,12 +270,12 @@ function appExplorer(){
   body.innerHTML='<div class="toolbar"><span class="tbtn">⬅ 向上</span><span class="tbtn">🔍 搜索</span></div>'+
     '<div class="crumbbar">📁 我的文档</div>'+
     '<div class="explorer" style="height:calc(100% - 60px);"><div class="ex-main"><div class="fgrid" id="exp-grid"></div></div></div>';
-  WM.create({id:'exp-mydocs',title:'我的文档 - 资源管理器',icon:'📁',width:620,height:420,content:body});
+  WM.create({id:'exp-mydocs',title:'我的文档 - 资源管理器',icon:'<span class="ic xs ic-folder"></span>',width:620,height:420,content:body});
   const g=body.querySelector('#exp-grid');
   Object.keys(t.folders).forEach(fn=>{
     if(fn==='_root')return;
     const f=document.createElement('div');f.className='fitem';
-    f.innerHTML='<div class="fi">📁</div><div class="fn">'+fn+'</div>';
+    f.innerHTML='<div class="fi"><span class="ic sm ic-folder"></span></div><div class="fn">'+fn+'</div>';
     f.ondblclick=()=>appSubFolder(fn);
     g.appendChild(f);
   });
@@ -277,15 +287,21 @@ function appSubFolder(folder){
   body.innerHTML='<div class="toolbar"><span class="tbtn" onclick="openApp(\'mydocs\')">⬅ 向上</span></div>'+
     '<div class="crumbbar">📁 我的文档 \\ '+folder+'</div>'+
     '<div class="fgrid" id="sf-grid" style="padding:10px;"></div>';
-  WM.create({id:'sub-'+folder,title:folder,icon:'📁',width:600,height:400,content:body});
+  WM.create({id:'sub-'+folder,title:folder,icon:'<span class="ic xs ic-folder"></span>',width:600,height:400,content:body});
   const g=body.querySelector('#sf-grid');
   docs.forEach(openDocItem(g));
+}
+function fileIcoClass(key){
+  if(/\.doc$/i.test(key))return'ic-word';
+  if(/\.(jpg|jpeg|png)$/i.test(key))return'ic-pic';
+  if(/\.mp3|\.wav/i.test(key))return'ic-music';
+  return'ic-txt';
 }
 function openDocItem(grid){
   return key=>{
     const doc=DOCS[key];if(!doc)return;
     const f=document.createElement('div');f.className='fitem';
-    f.innerHTML='<div class="fi">'+doc.icon+'</div><div class="fn">'+doc.title+'</div>';
+    f.innerHTML='<div class="fi"><span class="ic sm '+fileIcoClass(key)+'"></span></div><div class="fn">'+doc.title+'</div>';
     f.ondblclick=()=>openDoc(key);
     grid.appendChild(f);
   };
@@ -362,12 +378,12 @@ function appNotepad(preset){
   const ta=document.createElement('textarea');
   ta.className='notepad-area';ta.readOnly=true;
   ta.value=preset?preset.text:'记事本\r\n\r\n（空白。也许主人习惯把东西都放进文件夹里。）';
-  WM.create({id:'np-'+(preset?preset.title.replace(/\W/g,''):'blank'),title:(preset?preset.title+' - 记事本':'无标题 - 记事本'),icon:'📝',width:600,height:430,content:ta});
+  WM.create({id:'np-'+(preset?preset.title.replace(/\W/g,''):'blank'),title:(preset?preset.title+' - 记事本':'无标题 - 记事本'),icon:'<span class="ic xs ic-note"></span>',width:600,height:430,content:ta});
 }
 function appRecentDocs(){
   const body=document.createElement('div');
   body.innerHTML='<div class="crumbbar">📂 最近使用的文档'+(IS_GUEST?'（Guest 可见 1 项）':'')+'</div><div class="fgrid" id="rd-grid" style="padding:10px;"></div>';
-  WM.create({id:'recent-docs',title:'最近使用的文档',icon:'📂',width:520,height:330,content:body});
+  WM.create({id:'recent-docs',title:'最近使用的文档',icon:'<span class="ic xs ic-folder"></span>',width:520,height:330,content:body});
   const g=body.querySelector('#rd-grid');
   const items=[{key:'给妈妈的信_未寄出.txt'}];
   if(!IS_GUEST){
@@ -394,7 +410,7 @@ function appCalendar(){
     if((first+d)%7===0&&d<days)html+='</tr><tr>';
   }
   html+='</tr></table><div style="padding:10px;color:#8a1f11;font-size:12px;">📌 6月1日：妈妈把我接回家（这一天被红笔圈了很多年）</div>';
-  WM.create({id:'cal',title:'日历 - 1996年6月',icon:'📅',width:380,height:380,content:(function(){const b=document.createElement('div');b.innerHTML=html;return b;})()});
+  WM.create({id:'cal',title:'日历 - 1996年6月',icon:'<span class="ic xs ic-cal"></span>',width:380,height:380,content:(function(){const b=document.createElement('div');b.innerHTML=html;return b;})()});
 }
 
 /* ============ 回收站 ============ */
@@ -402,11 +418,11 @@ function appRecycle(){
   const body=document.createElement('div');
   body.innerHTML='<div class="toolbar"><span class="tbtn" id="rb-empty">清空回收站</span></div>'+
     '<div class="fgrid" id="rc-grid" style="padding:12px;"></div>';
-  WM.create({id:'recycle-bin',title:'回收站',icon:'🗑️',width:560,height:380,content:body});
+  WM.create({id:'recycle-bin',title:'回收站',icon:'<span class="ic xs ic-recycle"></span>',width:560,height:380,content:body});
   const g=body.querySelector('#rc-grid');
   RECYCLE.forEach(item=>{
     const f=document.createElement('div');f.className='fitem';
-    f.innerHTML='<div class="fi">'+(item.name.indexOf('.jpg')>=0?'🖼️':'🎵')+'</div><div class="fn">'+item.name+'<br><small style="color:#999">删除于 '+item.del+'</small></div>';
+    f.innerHTML='<div class="fi"><span class="ic sm '+(item.name.indexOf('.jpg')>=0?'ic-pic':'ic-music')+'"></span></div><div class="fn">'+item.name+'<br><small style="color:#999">删除于 '+item.del+'</small></div>';
     f.ondblclick=()=>{
       if(item.fake){WM.dialog('🗑️',item.msg);}
       else{
@@ -426,7 +442,7 @@ function appMail(){
   body.innerHTML='<div class="mail-app">'+
     '<div class="mail-folders"><div class="on">📥 收件箱 (1)</div><div>📤 发件箱</div><div>📄 已发送 (1)</div><div>🗑️ 已删除</div></div>'+
     '<div class="mail-list" id="ml-list"></div><div class="mail-view" id="ml-view"><div style="padding:30px;color:#888;">选择一封邮件以阅读。</div></div></div>';
-  WM.create({id:'mail-app-w',title:'收件箱 - 江州邮局',icon:'📮',width:860,height:520,content:body});
+  WM.create({id:'mail-app-w',title:'收件箱 - 江州邮局',icon:'<span class="ic xs ic-mail"></span>',width:860,height:520,content:body});
   const list=body.querySelector('#ml-list');
   MAILS.inbox.forEach(m=>{
     const r=document.createElement('div');
@@ -507,7 +523,7 @@ function renderIE(url){
     '<iframe class="ie-frame" id="ie-frame" src="'+url+'"></iframe>'+
     '<div class="ie-status"><span id="ie-msg">完成</span><div class="ie-progress"><i id="ie-pg"></i></div></div>'+
     '</div>';
-  const w=WM.create({id:'ie-window',title:'搜霸一下，你就知道 - Internet Explorer',icon:'🌐',width:900,height:600,content:body});
+  const w=WM.create({id:'ie-window',title:'搜霸一下，你就知道 - Internet Explorer',icon:'<span class="ic xs ic-ie"></span>',width:900,height:600,content:body});
   w.el.querySelector('.win-body').style.overflow='hidden';
   historyStack=[url];historyIdx=0;
   wireIE(body,url);
@@ -567,7 +583,7 @@ function appMedia(){
   body.innerHTML='<div style="height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:#222;">'+
     '<div style="font-size:44px;">📼</div><div style="color:#ccc;">没有可播放的媒体文件。</div>'+
     '<div style="color:#777;font-size:11px;">（三盒磁带在房东的纸箱里，这台电脑放不了它们。）</div></div>';
-  WM.create({id:'media',title:'Windows Media Player',icon:'🎵',width:460,height:320,content:body});
+  WM.create({id:'media',title:'Windows Media Player',icon:'<span class="ic xs ic-wmp"></span>',width:460,height:320,content:body});
 }
 
 /* ============ 开始菜单 ============ */
@@ -647,7 +663,7 @@ function appEditorSystem(){
       '</div>'+
     '</div>'+
   '</div></div>';
-  const w=WM.create({id:'editor-system',title:'江北晨报采编系统 - 请登录',icon:'📰',width:720,height:520,content:body,noMax:true});
+  const w=WM.create({id:'editor-system',title:'江北晨报采编系统 - 请登录',icon:'<span class="ic xs ic-mail"></span>',width:720,height:520,content:body,noMax:true});
   w.el.querySelector('.win-body').style.overflow='auto';
 
   body.querySelector('#ed-go').onclick=()=>{

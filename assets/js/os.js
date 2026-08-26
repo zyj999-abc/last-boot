@@ -111,10 +111,14 @@ const Game = {
     document.body.style.filter='brightness(0.15)';
     setTimeout(()=>location.href=url,480);
   },
-  injectFx(){
-    ['fx-scanlines','fx-vignette'].forEach(c=>{
-      const d=document.createElement('div');d.className=c;document.body.appendChild(d);
-    });
+  injectFx(opts){
+    opts=opts||{};
+    if(opts.scanlines!==false){
+      const s=document.createElement('div');s.className='fx-scanlines';document.body.appendChild(s);
+    }
+    if(opts.vignette!==false){
+      const v=document.createElement('div');v.className='fx-vignette';document.body.appendChild(v);
+    }
     this.renderHud();
   }
 };
@@ -355,6 +359,5 @@ const WM = {
 
 /* 开机音效在首次手势后可用 */
 document.addEventListener('DOMContentLoaded',()=>{
-  Game.injectFx();
   document.body.addEventListener('pointerdown',()=>Sfx.ensure(),{once:true});
 });

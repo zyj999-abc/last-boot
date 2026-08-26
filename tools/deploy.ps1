@@ -36,8 +36,10 @@ $commit = Api Post "$base/git/commits" @{ message='feat: 《最后一次开机 T
 try{ Api Post "$base/git/refs" @{ ref='refs/heads/main'; sha=$commit.sha } | Out-Null }catch{
   Api Patch "$base/git/refs/heads/main" @{ sha=$commit.sha; force=$true } | Out-Null
 }
-# 删除引导文件
-Invoke-RestMethod -Uri "$base/contents/bootstrap.md" -Method Delete -Headers $h -Body (@{message='cleanup';sha=$boot.content.sha;branch='main'}|ConvertTo-Json) -ContentType 'application/json' | Out-Null
+# 删除引导文件（树替换后可能已不存在，忽略404）
+try{
+  Invoke-RestMethod -Uri "$base/contents/bootstrap.md" -Method Delete -Headers $h -Body (@{message='cleanup';sha=$boot.content.sha;branch='main'}|ConvertTo-Json) -ContentType 'application/json' | Out-Null
+}catch{ Write-Output 'bootstrap already gone (ok)' }
 Write-Output 'PUSH OK'
 # 开启 Pages(workflow模式)
 try{ Api Post "$base/pages" @{ build_type='workflow' } | Out-Null; Write-Output 'pages enabled' }catch{ Write-Output ("pages: " + $_.Exception.Message) }

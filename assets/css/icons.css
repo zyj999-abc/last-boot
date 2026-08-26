@@ -1,0 +1,284 @@
+/* ============================================================
+   《最后一次开机》 XP 年代拟物图标库（纯 CSS，零图片）
+   语法：伪 3D + 光泽渐变 + 投影 —— 还原 2003 年 Luna 图标语言
+   用法：<span class="ic ic-mycomp"></span>
+   ============================================================ */
+
+.ic{
+  position:relative; display:inline-block;
+  width:38px; height:38px; flex:none;
+  filter:drop-shadow(1px 2px 2px rgba(0,0,0,.42));
+}
+
+/* ---------- 我的电脑：CRT 显示器 ---------- */
+.ic-mycomp{
+  background:linear-gradient(150deg,#e8eef5 0%,#b9c9d9 55%,#8ba1b8 100%);
+  border:1px solid #46586b; border-radius:4px 4px 3px 3px;
+}
+.ic-mycomp::before{ /* 屏幕 */
+  content:''; position:absolute; inset:4px 4px 10px 4px;
+  background:radial-gradient(circle at 32% 28%, #7fb2e0 0%, #2f5f96 55%, #1d3f68 100%);
+  border:1px solid #33465a; border-radius:2px;
+}
+.ic-mycomp::after{ /* 底座 */
+  content:''; position:absolute; left:7px; right:7px; bottom:-6px; height:6px;
+  background:linear-gradient(180deg,#d3dde7,#93a7bb);
+  border:1px solid #46586b; border-radius:0 0 3px 3px;
+  box-shadow:inset -14px 0 0 -10px #37c24b; /* 绿色电源灯 */
+}
+
+/* ---------- 文件夹：黄口袋插白纸 ---------- */
+.ic-folder{
+  background:
+    repeating-linear-gradient(180deg,transparent 0 4px,#c9d6ea 4px 5px) 4px 4px/26px 14px no-repeat,
+    linear-gradient(180deg,#ffffff,#e9edf4);
+  border:none;
+}
+.ic-folder::before{ /* 前口袋 */
+  content:''; position:absolute; left:0; right:0; bottom:0; height:72%;
+  background:linear-gradient(180deg,#ffd677 0%,#f2ab2e 60%,#df9214 100%);
+  border:1px solid #b57b0e; border-radius:2px 3px 2px 2px;
+}
+.ic-folder::after{ /* 折耳 */
+  content:''; position:absolute; top:-4px; left:1px; width:15px; height:7px;
+  background:linear-gradient(180deg,#ffd677,#eda62a);
+  border:1px solid #b57b0e; border-radius:2px 3px 0 0;
+}
+
+/* ---------- 回收站 ---------- */
+.ic-recycle{
+  background:repeating-linear-gradient(90deg,#d5e7f5 0 4px,#aecbe4 4px 8px);
+  border:1px solid #58799a; border-radius:3px 3px 7px 7px;
+  margin-top:4px;
+}
+.ic-recycle::before{ /* 桶口沿 */
+  content:''; position:absolute; top:-4px; left:-2px; right:-2px; height:6px;
+  background:linear-gradient(180deg,#eaf3fb,#9cc0dc);
+  border:1px solid #58799a; border-radius:3px;
+}
+.ic-recycle::after{ /* 回收标志 */
+  content:'♻'; position:absolute; inset:0; display:flex;
+  align-items:center; justify-content:center;
+  font-size:16px; color:#2e8b3a; text-shadow:0 1px 0 #fff, 0 0 2px #fff;
+}
+
+/* ---------- IE 浏览器 ---------- */
+.ic-ie{ text-align:center; }
+.ic-ie::before{
+  content:'e'; position:absolute; inset:0; z-index:2;
+  font-family:"Times New Roman",serif; font-style:italic; font-weight:bold;
+  font-size:31px; line-height:38px; color:#1560bd;
+  text-shadow:-1px -1px 0 #fff,1px -1px 0 #fff,-1px 1px 0 #fff,1px 1px 0 #fff,2px 2px 3px rgba(0,0,0,.35);
+}
+.ic-ie::after{ /* 金色光环（前段遮字） */
+  content:''; position:absolute; left:-2px; top:8px; width:40px; height:17px;
+  border:4px solid #f2c235; border-radius:50%;
+  transform:rotate(-23deg);
+  box-shadow:0 0 0 1px rgba(255,255,255,.65) inset;
+}
+
+/* ---------- 信封（江州邮局） ---------- */
+.ic-mail{
+  background:linear-gradient(180deg,#ffffff,#e6e9ee);
+  border:1px solid #8a95a3; border-radius:2px;
+}
+.ic-mail::before{ /* 上盖 */
+  content:''; position:absolute; top:0; left:0; border-style:solid;
+  border-width:0 19px 20px 19px; border-color:transparent transparent #dfe5ec transparent;
+}
+.ic-mail::after{ /* 下折角 */
+  content:''; position:absolute; bottom:0; left:0; right:0; height:20px;
+  background:linear-gradient(to top right, transparent 49%, #cfd7e0 50%, transparent 52%),
+             linear-gradient(to top left, transparent 49%, #cfd7e0 50%, transparent 52%);
+}
+
+/* ---------- 记事本 ---------- */
+.ic-note{
+  background:repeating-linear-gradient(180deg,#ffffff 0 6px,#c9daf0 6px 7px);
+  border:1px solid #8496aa; border-radius:1px;
+}
+.ic-note::before{ /* 螺旋装订 */
+  content:''; position:absolute; top:-4px; left:5px; right:5px; height:6px;
+  border-top:3px dotted #6b7c90;
+}
+.ic-note::after{ /* 折角 */
+  content:''; position:absolute; right:-1px; bottom:-1px; width:0; height:0;
+  border-style:solid; border-width:0 0 9px 9px;
+  border-color:transparent transparent #d9e2ec transparent;
+  box-shadow:-1px -1px 0 #8496aa;
+}
+
+/* ---------- 媒体播放器 ---------- */
+.ic-wmp{
+  background:radial-gradient(circle at 34% 30%,#ffc36b,#f47b20 62%,#d55f0e 100%);
+  border-radius:50%; border:1px solid #a84a08;
+}
+.ic-wmp::after{
+  content:''; position:absolute; top:50%; left:54%; transform:translate(-50%,-50%);
+  border-style:solid; border-width:8px 0 8px 13px;
+  border-color:transparent transparent transparent #ffffff;
+  filter:drop-shadow(0 1px 1px rgba(120,50,0,.6));
+}
+
+/* ---------- 软盘 ---------- */
+.ic-floppy{
+  background:linear-gradient(135deg,#3b4c7a,#1d2947);
+  border:1px solid #101a33; border-radius:2px;
+}
+.ic-floppy::before{ /* 金属滑片 */
+  content:''; position:absolute; top:2px; left:50%; transform:translateX(-50%);
+  width:22px; height:11px;
+  background:linear-gradient(180deg,#eef1f6,#a8b1c2);
+  border:1px solid #2a3550;
+}
+.ic-floppy::after{ /* 标签 */
+  content:''; position:absolute; bottom:2px; left:5px; right:5px; height:15px;
+  background:linear-gradient(180deg,#fafafa,#e4e4e4);
+  border:1px solid #b9b9b9;
+}
+
+/* ---------- 光盘 ---------- */
+.ic-cd{
+  border-radius:50%;
+  background:conic-gradient(from 210deg,#e8eef6,#b9c9dc,#f2f7fc,#aebfce,#eef4fa,#c3d2e2,#e8eef6);
+  border:1px solid #97a5b6;
+}
+.ic-cd::before{
+  content:''; position:absolute; inset:13px; border-radius:50%;
+  background:radial-gradient(circle,#ffffff 40%,#dbe4ee 41%,#c6d2df 100%);
+  border:1px solid #9aa8b8;
+}
+
+/* ---------- 硬盘（本地磁盘） ---------- */
+.ic-hdd{
+  background:linear-gradient(180deg,#e8ecf1,#aab6c4 60%,#8d9dae);
+  border:1px solid #5b6b7d; border-radius:3px;
+}
+.ic-hdd::before{ /* 前面板 */
+  content:''; position:absolute; left:4px; right:4px; bottom:4px; height:14px;
+  background:linear-gradient(180deg,#f4f7fa,#ccd5de);
+  border:1px solid #5b6b7d; border-radius:2px;
+}
+.ic-hdd::after{ /* 指示灯 + 散热孔 */
+  content:''; position:absolute; right:7px; bottom:8px; width:5px; height:5px;
+  background:#37c24b; border-radius:50%;
+  box-shadow:0 0 3px #37c24b, -26px 1px 0 -1px #6b7c90;
+}
+
+/* ---------- 日历 ---------- */
+.ic-cal{
+  background:linear-gradient(180deg,#ffffff,#eef1f6);
+  border:1px solid #8496aa; border-radius:2px;
+}
+.ic-cal::before{ /* 红头+装订环 */
+  content:''; position:absolute; top:0; left:0; right:0; height:9px;
+  background:linear-gradient(180deg,#d9534f,#b52f2c); border-bottom:1px solid #8a2020;
+  box-shadow:inset 4px -1px 0 -2px #fff, inset -4px -1px 0 -2px #fff;
+}
+.ic-cal::after{
+  content:'31'; position:absolute; left:0; right:0; bottom:5px;
+  font:bold 13px Tahoma; color:#33465a; text-align:center;
+}
+
+/* ---------- 文件类小图标（资源管理器用） ---------- */
+
+/* 纯白文本 */
+.ic-txt{
+  background:linear-gradient(160deg,#ffffff,#eef1f5);
+  border:1px solid #97a4b3; border-radius:1px;
+}
+.ic-txt::before{
+  content:''; position:absolute; left:7px; right:7px; top:8px; bottom:8px;
+  background:repeating-linear-gradient(180deg,transparent 0 4px,#b9c8da 4px 5px);
+}
+.ic-txt::after{
+  content:''; position:absolute; top:-1px; right:-1px; width:0; height:0;
+  border-style:solid; border-width:0 10px 10px 0;
+  border-color:transparent #ffffff transparent transparent;
+  box-shadow:-1px 1px 0 #97a4b3;
+}
+
+/* Word 文档 */
+.ic-word{
+  background:linear-gradient(160deg,#ffffff,#eef1f5);
+  border:1px solid #97a4b3; border-radius:1px;
+}
+.ic-word::before{
+  content:'W'; position:absolute; top:3px; left:3px; z-index:2;
+  width:15px; height:15px; background:linear-gradient(135deg,#3d6cb4,#274a86);
+  color:#fff; font:bold 11px/15px Tahoma; text-align:center; border-radius:2px;
+}
+.ic-word::after{
+  content:''; position:absolute; left:8px; right:6px; top:10px; bottom:6px;
+  background:repeating-linear-gradient(180deg,transparent 0 4px,#c3cede 4px 5px);
+}
+
+/* 图片文件 */
+.ic-pic{
+  background:linear-gradient(180deg,#b9ddf7 0%,#dcedfa 55%,#8bc474 55%,#5f9e4c 100%);
+  border:1px solid #8496aa; overflow:hidden;
+}
+.ic-pic::before{ /* 太阳 */
+  content:''; position:absolute; top:4px; left:5px; width:8px; height:8px;
+  border-radius:50%; background:#ffd94d; box-shadow:0 0 3px #ffd94d;
+}
+.ic-pic::after{ /* 相框白边 */
+  content:''; position:absolute; inset:0; border:3px solid #ffffff;
+  box-shadow:inset 0 0 0 1px #97a4b3;
+}
+
+/* 音乐文件 */
+.ic-music{
+  background:linear-gradient(160deg,#ffffff,#eef1f5);
+  border:1px solid #97a4b3; border-radius:1px;
+}
+.ic-music::before{
+  content:'♪'; position:absolute; inset:0; display:flex;
+  align-items:center; justify-content:center;
+  font-size:21px; color:#7a4fb3; text-shadow:1px 1px 0 #fff;
+}
+
+/* 可执行/程序 */
+.ic-app{
+  background:linear-gradient(180deg,#fdfdfa,#dcd8ca 70%,#cbc7b6);
+  border:1px solid #7f8ba0; border-radius:2px;
+}
+.ic-app::before{ /* 蓝色标题条 */
+  content:''; position:absolute; top:2px; left:2px; right:2px; height:8px;
+  background:var(--xp-title-a); border-radius:1px;
+}
+.ic-app::after{ /* 窗体内容线条 */
+  content:''; position:absolute; left:5px; right:5px; top:14px; bottom:5px;
+  background:repeating-linear-gradient(180deg,transparent 0 4px,#c9d3e2 4px 5px);
+}
+
+/* ---------- 尺寸变体 ---------- */
+.ic.sm{ transform:scale(.74); transform-origin:center; margin:-4px; }
+.ic.xs{ transform:scale(.46); transform-origin:center; }
+
+/* ---------- 开始按钮旗帜（CSS 版 Windows 徽标） ---------- */
+.flag{
+  display:inline-grid; grid-template-columns:7px 7px; grid-template-rows:7px 7px;
+  gap:1px; transform:skewY(-14deg); margin-right:2px;
+}
+.flag i{ border-radius:1px; }
+.flag i:nth-child(1){ background:#f25022; }
+.flag i:nth-child(2){ background:#7fba00; }
+.flag i:nth-child(3){ background:#00a4ef; }
+.flag i:nth-child(4){ background:#ffb900; }
+
+/* ---------- 登录页大头像（管理员） ---------- */
+.avatar-chenmo{
+  width:64px; height:64px; border-radius:6px; border:2px solid #fff;
+  background:linear-gradient(150deg,#e8eef5 0%,#b9c9d9 55%,#8ba1b8 100%);
+  position:relative; overflow:hidden;
+}
+.avatar-chenmo::before{ /* 屏幕脸 */
+  content:''; position:absolute; inset:10px 8px 18px 8px;
+  background:radial-gradient(circle at 40% 30%,#7fb2e0,#1d3f68);
+  border:1px solid #33465a; border-radius:3px;
+}
+.avatar-chenmo::after{
+  content:''; position:absolute; left:14px; right:14px; bottom:6px; height:7px;
+  background:linear-gradient(180deg,#d3dde7,#93a7bb); border:1px solid #46586b;
+}
