@@ -10,7 +10,16 @@
   .masthead span{font-size:12px;opacity:.85;}
   .nav{background:#fff;border-bottom:3px double #8c1a1a;padding:6px 22px;font-size:13px;}
   .nav b{color:#8c1a1a;margin-right:16px;} .nav a{color:#333;text-decoration:none;margin-right:16px;}
-  .wrap{max-width:760px;margin:20px auto;background:#fff;border:1px solid #ddd;padding:34px 44px;}
+  .wrap{max-width:760px;background:#fff;border:1px solid #ddd;padding:34px 44px;flex:1;min-width:0;}
+  .layout{max-width:1000px;margin:20px auto;display:flex;gap:16px;align-items:flex-start;padding:0 10px;}
+  aside.side{width:225px;flex:none;}
+  .side .box{background:#fff;border:1px solid #ddd;margin-bottom:14px;}
+  .side h3{margin:0;font-size:13.5px;color:#8c1a1a;background:#f4efe3;padding:8px 12px;border-bottom:1px solid #e5ddc8;letter-spacing:1px;font-weight:normal;}
+  .side ul{list-style:none;margin:0;padding:10px 14px;}
+  .side li{padding:6px 0;border-bottom:1px dotted #e2dbc8;font-size:12.5px;line-height:1.7;color:#555;}
+  .side li:last-child{border:none;}
+  .side .ad{background:linear-gradient(135deg,#fff8ec,#ffe9c9);padding:16px 14px;text-align:center;font-size:13px;line-height:1.9;border:1px dashed #d9b98a;}
+  .side .ad b{color:#b3541e;display:block;font-size:15px;letter-spacing:2px;margin-bottom:6px;}
   .art{display:none;}
   .art.on{display:block;}
   .art h2{font-size:21px;text-align:center;line-height:1.7;margin-bottom:8px;}
@@ -30,6 +39,7 @@
 <div class="masthead"><h1>江北晨报 · 电子版</h1><span>2003年12月31日 星期三 农历腊月初九</span></div>
 <div class="nav"><b>要闻</b><b>江州</b><a>社会</a><a>财经</a><a>文体</a><a>证券</a><a>副刊</a></div>
 
+<div class="layout">
 <div class="wrap">
   <!-- 首页列表 -->
   <div id="idx" class="art on">
@@ -50,6 +60,29 @@
       <div>生活服务 | 江州市气象台发布道路结冰黄色预警</div>
     </div>
   </div>
+
+  <!-- 右侧栏 -->
+  <aside class="side">
+    <div class="box">
+      <h3>今日江州 · 热点</h3>
+      <ul>
+        <li>· 元旦期间各商场营业时间调整</li>
+        <li>· 江州至省城高速今日起恢复收费</li>
+        <li>· 老城区供暖管网抢修进展通报</li>
+        <li>· 本报征集 2003 年度十大新闻</li>
+      </ul>
+    </div>
+    <div class="box"><div class="ad"><b>江州电脑城</b>年末装机特卖<br>P4 处理器 隆重上市<br><span style="color:#999;font-size:12px;">（本广告为虚构内容）</span></div></div>
+    <div class="box">
+      <h3>订阅信息</h3>
+      <ul>
+        <li>· 订阅热线：0733-4413</li>
+        <li>· 本报地址：江州市中山北路 96 号</li>
+        <li>· 电子版试运行阶段免费阅读</li>
+      </ul>
+    </div>
+  </aside>
+</div>
 
   <!-- 火灾追踪 -->
   <div id="fire" class="art">
@@ -95,7 +128,7 @@
   </div>
 </div>
 
-<div class="foot">江北晨报社 版权所有 · 江ICP备000096号<br>（本站为虚构作品中的虚构报纸网站）</div>
+<div class="foot" style="max-width:1000px;">江北晨报社 版权所有 · 江ICP备000096号<br>（本站为虚构作品中的虚构报纸网站）</div>
 
 <script>
 function show(id){

@@ -207,10 +207,13 @@ const WM = {
 
     const w = document.createElement('div');
     w.className='win active'; w.dataset.wid=id;
-    w.style.width=(opt.width||520)+'px';
-    w.style.height=(opt.height||380)+'px';
-    const maxX=Math.max(20,(window.innerWidth-(opt.width||520))-16);
-    const maxY=Math.max(20,(window.innerHeight-70-(opt.height||380)));
+    const wd=opt.width||520;
+    w.style.width=wd+'px';
+    // 高度策略：'auto' 表示随内容收缩，杜绝空白；数字则固定
+    if(opt.height==='auto'){ w.style.height='auto'; w.classList.add('autosize'); }
+    else { w.style.height=(opt.height||380)+'px'; }
+    const maxX=Math.max(20,(window.innerWidth-wd)-16);
+    const maxY=Math.max(20,(window.innerHeight-70-(parseInt(opt.height)||300)));
     w.style.left=(opt.x!=null?opt.x:40+(Object.keys(this.wins).length%6)*26)+'px';
     w.style.top =(opt.y!=null?opt.y:30+(Object.keys(this.wins).length%6)*22)+'px';
 
@@ -318,12 +321,17 @@ const WM = {
   dialog(icon,text,buttons){
     buttons=buttons||[{label:'确定',value:true}];
     return new Promise(res=>{
+      const map=(typeof SVGI!=='undefined')?{
+        info:SVGI.info,warn:SVGI.warn,lock:SVGI.lock,
+        recycle:SVGI.recycle,floppy:SVGI.floppy,cd:SVGI.cd
+      }:{};
+      const ic=map[icon]||'';
       const mask=document.createElement('div');mask.className='dialog-mask';
       const d=document.createElement('div');d.className='xp-dialog';
       d.style.left='50%';d.style.top='34%';d.style.transform='translate(-50%,-50%)';
-      d.innerHTML='<div class="titlebar"><span class="t-ico">'+icon+'</span><span class="t-text">提示</span>'+
+      d.innerHTML='<div class="titlebar"><span class="t-ico">'+(ic||'')+'</span><span class="t-text">提示</span>'+
         '<div class="t-btns"><div class="tb close">r</div></div></div>'+
-        '<div class="dlg-body"><span class="dlg-icon">'+icon+'</span><span>'+text+'</span></div>'+
+        '<div class="dlg-body">'+(ic?'<span class="dlg-icon">'+ic+'</span>':'')+'<span>'+text+'</span></div>'+
         '<div class="dlg-btns"></div>';
       const btns=d.querySelector('.dlg-btns');
       const finish=v=>{mask.remove();d.remove();res(v);};

@@ -4,33 +4,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Windows XP</title>
-<link rel="stylesheet" href="assets/css/os.css?v=15">
-<script src="assets/js/icons.js?v=15"></script>
+<link rel="stylesheet" href="assets/css/os.css?v=17">
 </head>
 <body>
 
-<div id="desktop"></div>
+<div id="desktop">
+  <div id="desktop-area"></div>
 
-<div class="guest-strip" id="guest-strip">
-  来宾账户 · 部分功能受限　|　当前可以查看：日历、最近使用的文档
-</div>
-
-<div id="taskbar">
-  <div id="start-btn"><svg class="winflag" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 3 L9 1.4 V9.4 L2 10.6 Z" fill="#f25022"/><path d="M10.6 1.2 L18 0 V8.8 L10.6 9.2 Z" fill="#7fba00"/><path d="M2 12 L9 11 V19 L2 17.6 Z" fill="#00a4ef"/><path d="M10.6 10.8 L18 10.4 V19 L10.6 18 Z" fill="#ffb900"/></svg>开始</div>
-  <div id="task-buttons"></div>
-  <div id="tray"><span title="本地连接已断开"><svg class="tray-svg" viewBox="0 0 16 16"><rect x="1" y="2.5" width="10" height="7" rx="1" fill="#cdd8e4" stroke="#22344e"/><rect x="3" y="4.5" width="6" height="3" fill="#5a86b8"/><path d="M12.5 5.5 L15 8.5 M15 5.5 L12.5 8.5" stroke="#d9d9d9" stroke-width="1.4"/><rect x="5.5" y="11.5" width="5" height="1.6" fill="#cdd8e4"/></svg></span><span><svg class="tray-svg" viewBox="0 0 16 16"><path d="M2 6 H5 L9 3 V13 L5 10 H2 Z" fill="#e8eef5" stroke="#33455e"/><path d="M11 5 Q13.6 8 11 11" stroke="#e8eef5" fill="none" stroke-width="1.3"/></svg></span><span id="clock">23:47</span></div>
-</div>
-
-<div id="start-menu">
-  <div class="sm-header"><div class="avatar" id="sm-avatar"></div><b id="sm-user">陈 默</b></div>
-  <div style="display:flex;">
-    <div class="sm-items" style="flex:1.2;" id="sm-left"></div>
-    <div class="sm-items sm-right" style="flex:1;" id="sm-right"></div>
+  <div class="guest-strip" id="guest-strip">
+    来宾账户 · 部分功能受限　|　当前可以查看：日历、最近使用的文档
   </div>
-  <div class="sm-footer"><span onclick="logout()" style="cursor:pointer;">注销(L)</span><span onclick="doShutdown()" style="cursor:pointer;">关闭计算机(U)</span></div>
-</div>
 
-<div class="bsod" id="bsod"><b>A problem has been detected...</b>
+  <!-- 任务栏 -->
+  <div class="taskbar">
+    <button class="start-btn" id="start-btn"><span class="start-logo"></span>开始</button>
+    <div id="task-buttons"></div>
+    <div class="system-tray"><span title="本地连接已断开"><svg class="tray-svg" viewBox="0 0 16 16"><rect x="1" y="2.5" width="10" height="7" rx="1" fill="#cdd8e4" stroke="#22344e"/><rect x="3" y="4.5" width="6" height="3" fill="#5a86b8"/><path d="M12.5 5.5 L15 8.5 M15 5.5 L12.5 8.5" stroke="#d9d9d9" stroke-width="1.4"/><rect x="5.5" y="11.5" width="5" height="1.6" fill="#cdd8e4"/></svg></span><span><svg class="tray-svg" viewBox="0 0 16 16"><path d="M2 6 H5 L9 3 V13 L5 10 H2 Z" fill="#e8eef5" stroke="#33455e"/><path d="M11 5 Q13.6 8 11 11" stroke="#e8eef5" fill="none" stroke-width="1.3"/></svg></span><span id="clock">23:47</span></div>
+  </div>
+
+  <!-- 开始菜单 -->
+  <div id="start-menu">
+    <div class="sm-header"><div class="avatar" id="sm-avatar"></div><b id="sm-user">陈 默</b></div>
+    <div style="display:flex;">
+      <div class="sm-items" style="flex:1.2;" id="sm-left"></div>
+      <div class="sm-items sm-right" style="flex:1;" id="sm-right"></div>
+    </div>
+    <div class="sm-footer"><span onclick="logout()" style="cursor:pointer;">注销(L)</span><span onclick="doShutdown()" style="cursor:pointer;">关闭计算机(U)</span></div>
+  </div>
+
+  <!-- 蓝屏彩蛋 -->
+  <div class="bsod" id="bsod"><b>A problem has been detected...</b>
 
 JZFS_FILE_SYSTEM
 
@@ -40,12 +43,13 @@ Technical information:
 
 卷 C:\ 上的文件系统出现异常，系统已将内存转储。
 如果你第一次看到此屏幕，请重启计算机。
-如果再次出现，请检查你最近是否动过不该动的东西。
 
 —— 这不是真的蓝屏。这是这台电脑想给你看的记忆。</div>
+</div>
 
-<script src="assets/js/os.js?v=15"></script>
-<script src="assets/js/data.js?v=15"></script>
-<script src="assets/js/desktop-apps.js?v=15"></script>
+<script src="assets/js/os.js?v=17"></script>
+<script src="assets/js/data.js?v=17"></script>
+<script src="assets/js/icons.js?v=17"></script>
+<script src="assets/js/desktop-apps.js?v=17"></script>
 </body>
 </html>
